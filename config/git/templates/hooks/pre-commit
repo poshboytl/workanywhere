@@ -10,5 +10,6 @@ if [ -z "$repository_email" ] || [ -z "$repository_name" ] || [ -n "$global_emai
     exit 1
 else  
     # user.email is not empty
+    echo "email is not empty"
     exit 0
 fi 
