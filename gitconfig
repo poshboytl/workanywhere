@@ -18,4 +18,4 @@
 [difftool]
 	prompt = false
 [init]
-	templatedir = ~/.config/git/templates
+    templatedir = ~/.config/git/templates
