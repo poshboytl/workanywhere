@@ -14,6 +14,7 @@ fi
 #alias rm="trash"
 alias jh="jshint -c ~/.jshintrc --show-non-errors"
 alias c="clear"
+alias grepcontent="grep -rnw  . -e"
 alias yd="~/GitHub/ydcv/ydcv.py"
 alias gst="git status -sb"
 alias gl="git pull"
