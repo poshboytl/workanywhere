@@ -1,329 +1,270 @@
 set nocompatible
 
-filetype off                  " required
+call plug#begin('~/.vim/plugged')
+Plug 'Shutnik/jshint2.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-eunuch'
+Plug 'einars/js-beautify'
+Plug 'dsolstad/vim-wombat256i'
+Plug 'vim-scripts/wombat256.vim'
+Plug 'romainl/flattened'
+"Plug 'jiangmiao/auto-pairs'
+Plug 'Yggdroot/indentLine'
+Plug 'ervandew/supertab'
+Plug 'honza/vim-snippets'
+Plug 'itchyny/lightline.vim'
+Plug 'vim-scripts/gitignore'
+"Plug 'gorodinskiy/vim-coloresque', {'for':'xxxxx'}
+Plug 'groenewege/vim-less'
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+Plug 'hail2u/vim-css3-syntax'
+Plug 'kchmck/vim-coffee-script'
+Plug 'maksimr/vim-jsbeautify'
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" Keep Plugin commands between vundle#begin/end.
-Plugin 'tpope/vim-fugitive'
-Plugin 'mattn/emmet-vim'
-" Plugin 'ervandew/supertab'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'kien/ctrlp.vim'
-" Plugin 'scrooloose/nerdtree'
-Plugin 'vim-scripts/restore_view.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'mbbill/fencview'
-Plugin 'mbbill/undotree'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'Shougo/unite.vim'
-Plugin 'othree/html5.vim'
-Plugin 'bling/vim-airline'
-Plugin 'twerth/ir_black'
-Plugin 'vim-scripts/vim-auto-save'
-Plugin 'Shutnik/jshint2.vim'
-Plugin 'jelera/vim-javascript-syntax'
-"Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
-
-call vundle#end()            " required
-filetype plugin indent on    " required
-" All of your Plugins must be added before the above line
-
-
-
-" Put your non-Plugin stuff after this line
-set nolinebreak
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-let g:auto_save = 1  " enable AutoSave on Vim startup
-
-au BufReadPost,FileReadPost *.vm set syntax=html filetype=html
-set mousemodel=extend
-" airline
-let g:airline_powerline_fonts = 0
-set guifont=Sauce\ Code\ Powerline:h13
-" /airline
+Plug 'jelera/vim-javascript-syntax'
+Plug 'mattn/emmet-vim'
+Plug 'sjl/gundo.vim'
+Plug 'othree/html5.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/EasyGrep'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
+Plug 'gregsexton/gitv'
 
 
-" fencview
-let g:fencview_autodetect = 0
-" /fencview
 
-" neo
+call plug#end()
 
-	" Disable AutoComplPop.
-	let g:acp_enableAtStartup = 0
-	" Use neocomplete.
-	let g:neocomplete#enable_at_startup = 1
-	" Use smartcase.
-	let g:neocomplete#enable_smart_case = 1
-	" Set minimum syntax keyword length.
-	let g:neocomplete#sources#syntax#min_keyword_length = 2
-	let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-	" Define dictionary.
-	let g:neocomplete#sources#dictionary#dictionaries = {
-	    \ 'default' : '',
-	    \ 'vimshell' : $HOME.'/.vimshell_hist',
-	    \ 'scheme' : $HOME.'/.gosh_completions'
-	        \ }
+filetype plugin indent on    " required 2
+syntax enable
 
-	" Define keyword.
-	if !exists('g:neocomplete#keyword_patterns')
-	    let g:neocomplete#keyword_patterns = {}
-	endif
-	let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+set guioptions-=L
+set guioptions-=r 
+let mapleader = "\<space>"
+let g:mapleader = "\<space>"
+let g:EasyGrepWindowPosition = "botright"
+set noshowmode
+set iskeyword=@,$,48-57,192-255,_
+let g:lightline = {
+            \ 'colorscheme': 'landscape',
+            \ 'component': {
+            \       'readonly': '%{&filetype=="help"?"":&readonly?"🔒":""}',
+            \       'modified': '%{&filetype=="help"?"":&modified?"✍":&modifiable?"":"✗"}',
+            \       'lineinfo': '✈ %l'
+            \   },
+            \ 'component_visible_condition': {
+            \       'readonly': '(&filetype!="help"&& &readonly)',
+            \       'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+            \       'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+            \ },
+            \ 'component_function': {
+            \       'fugitive': 'MyFugitive',
+            \       'filename': 'MyFilename'
+            \ },
+            \ 'active': {
+            \       'left': [ 
+            \           ['lineinfo',  'fileencoding'],
+            \           ['filename','readonly', 'modified' ] 
+            \       ],
+            \   'right': [ [ 'mode' ],
+            \              [  'paste' ]
+            \          ]
+            \ },
+            \ 'separator': { 'left': '', 'right': '' },
+            \ 'subseparator': { 'left': '', 'right': '' }
+            \ }
 
-	" Plugin key-mappings.
-	inoremap <expr><C-g>     neocomplete#undo_completion()
-	inoremap <expr><C-l>     neocomplete#complete_common_string()
-	inoremap <expr><ESC>     neocomplete#close_popup() . "\<ESC>"
+" nerdtree
+let g:NERDTreeWinPos = "right"
+let g:nerdtree_tabs_open_on_console_startup = 0
+let g:nerdtree_tabs_focus_on_files = 1
+let g:nerdtree_tabs_autofind = 1
+set autochdir
+let NERDTreeChDirMode=2
+nnoremap <leader>e :<C-u>NERDTree .<CR>\|:wincmd p<CR>
 
-	" Recommended key-mappings.
-	" <CR>: close popup and save indent.
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function()
-	  "return neocomplete#close_popup() . "\<CR>"
-	  " For no inserting <CR> key.
-      return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+" snips
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
 
-	endfunction
-	" <TAB>: completion.
-	inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-	" <C-h>, <BS>: close popup and delete backword char.
-	inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-	inoremap <expr><C-y>  neocomplete#close_popup()
-	inoremap <expr><C-e>  neocomplete#cancel_popup()
-    
-	" Close popup by <Space>.
-	"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-	" For cursor moving in insert mode(Not recommended)
-	"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-	"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-	"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-	"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-	" Or set this.
-	"let g:neocomplete#enable_cursor_hold_i = 1
-	" Or set this.
-	"let g:neocomplete#enable_insert_char_pre = 1
-
-	" AutoComplPop like behavior.
-	"let g:neocomplete#enable_auto_select = 1
-
-	" Shell like behavior(not recommended).
-	"set completeopt+=longest
-	"let g:neocomplete#enable_auto_select = 1
-	"let g:neocomplete#disable_auto_complete = 1
-	"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-	" Enable omni completion.
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-	" Enable heavy omni completion.
-	if !exists('g:neocomplete#sources#omni#input_patterns')
-	  let g:neocomplete#sources#omni#input_patterns = {}
-	endif
-	"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-	"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-	"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-	" For perlomni.vim setting.
-	" https://github.com/c9s/perlomni.vim
-	let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-" /neo
-
-" set undofile
-" set undodir=$HOME/.vim/undo
-" set undolevels=1000
+let g:auto_save = 0  " enable AutoSave on Vim startup
 
 " ctrlp
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]((\.(git|hg|svn))|(bower_components|node_modules|target))$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-let g:ctrlp_working_path_mode = 'a'
-" /ctrlp
-"
-" autocmd VimEnter * NERDTree | wincmd p
-" autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+            \ 'dir':  '\v[\/]((\.(git|hg|svn))|(bower_components|node_modules|target))$',
+            \ 'file': '\v\.(exe|so|dll)$',
+            \ 'link': 'some_bad_symbolic_links',
+            \ }
+"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+nnoremap <leader>b :CtrlPBuffer<CR>
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
 
-"autocmd WinLeave,BufWinLeave * if expand('%:t') =~ '\.' | set norelativenumber | endif
-"autocmd WinEnter,BufWinEnter,CursorMoved,InsertEnter * if expand('%:t') =~ '\.' | set relativenumber | endif
-set relativenumber
-
-cnoreabbrev f Unite file -vertical -winwidth=25
-cnoreabbrev b Unite buffer -vertical -winwidth=25
-cnoreabbrev tn tabnext
-cnoreabbrev tp tabprevious
-cnoreabbrev c lcd %:p:h
-
-
-
-set foldmethod=syntax
-set nofoldenable
-set formatoptions=
-
-let g:vim_markdown_initial_foldlevel=3
-
-
-" http://amix.dk/vim/vimrc.html
-set history=1200
-let mapleader = ","
-let g:mapleader = ","
-set wildmenu
-set wildignore=*.o,*~,*.pyc
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-set ignorecase
-" set smartcase
-set hlsearch
-set incsearch
-set showmatch
-set mat=2
-syntax enable
-"colorscheme desert
-colorscheme ir_black
-set background=dark
-set encoding=utf8
-set fileencodings=ucs-bom,utf-8,gbk,cp936,gb18030,big5,euc-jp,euc-kr,latin1
-
-set ffs=unix,dos,mac
-set nobackup
-set nowb
-set noswapfile
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set expandtab
-set smarttab
-set shiftwidth=4
-set tabstop=4
-set lbr
-set ai "autoindent
-set nosi "smartindent
-set wrap "Wrap lines
-set nocindent
-
-map j gj
-map k gk
-map 0 ^
-
-" Return to last edit position when opening files (You want this!)
-autocmd BufReadPost *
-            \ if line("'\"") > 0 && line("'\"") <= line("$") |
-            \   exe "normal! g`\"" |
-            \ endif
-
-" Remember info about open buffers on close
-set viminfo^=%
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
-set laststatus=2
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ }
+endif
 
 
 " emmet
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css EmmetInstall
-imap <c-e> <c-y>,
-nmap E <c-y>,
-" imap jj <C-y>,
-" /emmet
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
-function! s:expand_html_tab()
-  " first try to expand any neosnippets
-  "if neosnippet#expandable_or_jumpable()
-  "  return "\<Plug>(neosnippet_expand_or_jump)"
-  "endif
+" markdown
+let g:vim_markdown_folding_disabled=1
 
-  " try to determine if we're within quotes or tags.
-  " if so, assume we're in an emmet fill area.
-  let line = getline('.')
-  if col('.') < len(line)
-    let line = matchstr(line, '[">][^<"]*\%'.col('.').'c[^>"]*[<"]')
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
-    if len(line) >= 2
-      return "\<C-y>n"
-    endif
-  endif
 
-  " go to next item in a popup menu.
-  " this will insert a snippet if it's selected in the menu
-  " due to neosnippets being the first check.
-  if pumvisible()
-    return "\<C-n>"
-  endif
+autocmd FileType ruby nnoremap <F5> :!ruby %<cr>
+autocmd FileType ruby inoremap <F5> <ESC>:!ruby %<cr>
 
-  " expand anything emmet thinks is expandable.
-  " I'm not sure anything happens below this block.
-  if emmet#isExpandable()
-    return "\<C-y>,"
-  endif
+map <leader>s :set foldmethod=manual<cr>
 
-  " return a regular tab character
-  return "\<tab>"
-endfunction
+" tab
+map <leader>1 :tabnext 1<cr>
+map <leader>2 :tabnext 2<cr>
+map <leader>3 :tabnext 3<cr>
+map <leader>4 :tabnext 4<cr>
+map <leader>5 :tabnext 5<cr>
+map <leader>6 :tabnext 6<cr>
+map <leader>7 :tabnext 7<cr>
+map <leader>8 :tabnext 8<cr>
+map <leader>9 :tabnext 9<cr>
+map <leader><tab> :tabnext<cr>
+nnoremap <C-T> :tabnew %:p:h<CR>
 
-autocmd FileType html imap <buffer><expr><tab> <sid>expand_html_tab()
+" fold
+set foldenable
+set foldlevel=10
+set foldmethod=manual
+set foldnestmax=5
+nnoremap <space> za
+vnoremap <space> zf
+"autocmd FileType javascript call JavaScriptFold()
+
+" beautify
+autocmd FileType css noremap <buffer> <C-l> :call CSSBeautify()<cr>
+autocmd FileType css noremap <buffer> <C-h> :call CssLint()<cr>
+autocmd FileType html noremap <buffer> <C-l> :call HtmlBeautify()<cr>
+autocmd FileType html noremap <buffer> <C-h> :call HtmlLint()<cr>
+autocmd FileType javascript noremap <buffer>  <C-l> mz<C-U>:call JsBeautify()<cr>`z<ESC>zz
+autocmd FileType javascript noremap <buffer>  <C-h> :JSHint()<cr>
+
+" omni
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+
+
+
+"encoding
+set encoding=utf8
+scriptencoding utf-8
+set fileencodings=ucs-bom,utf-8,gbk,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT,MERGE}* set fenc=utf8
+
+
+
+" better
+map q: :q
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+nnoremap <Leader>w :w<CR>
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+noremap ;; :%s:::g<Left><Left><Left>
+noremap ;' :%s:::cg<Left><Left><Left><Left>
+autocmd BufReadPost,FileReadPost *.jsx set syntax=javascript filetype=javascript
+autocmd BufReadPost,FileReadPost *.vm set syntax=html filetype=html
+map 0 ^
+map j gj
+map k gk
+nnoremap Y "+y
+nnoremap <silent><S-b> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
+nnoremap <silent><S-w> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
+nnoremap <leader>f :<C-u>e %:p:h<CR>
+noremap <C-S> :w<CR>
+vnoremap <C-T> :tabnew %:p:h<CR>
+noremap <F11> <C-u>:wincmd o<CR>
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif " Return to last edit position when opening files (You want this!)
+set autoindent
+set nocindent
+set backspace=eol,start,indent
+set nosmartindent
+set background=dark
+"set completeopt=menuone
+set expandtab
+set fileformats=unix,dos,mac
+set history=1200
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2
+set lbr
+set mat=2
+set mouse=
+set mousemodel=extend
+set nobackup
+set switchbuf=usetab
+set nolinebreak
+set noswapfile
+set nowb
+set nowrap
+set pastetoggle=<F4>
+set relativenumber
+set number
+set sessionoptions-=buffers
+set sessionoptions-=options
+set shiftwidth=4
+set showmatch
+set smartcase
+set smarttab
+set splitbelow
+set splitright
+set tabstop=4
+set undodir=/Users/frank/.vim/undodir/
+set undofile
+set viminfo^=% " Remember info about open buffers on close
+set whichwrap+=<,>,h,l
+set wildignore=*.o,*~,*.pyc
+set wildmenu
+
+if has("gui_running")
+    set guifont=Sauce\ Code\ Powerline:h13
+endif
+
+" colorscheme
+colorscheme molokai
+"colorscheme flattened_light
+let g:molokai_original = 1
+set colorcolumn=120
+"let g:rehash256 = 1
+"hi MatchParen term=reverse cterm=bold ctermfg=red ctermbg=234 gui=bold guifg=#000000 guibg=#FD971F
+hi MatchParen term=reverse cterm=bold ctermfg=red ctermbg=none gui=bold guifg=#000000 guibg=#FD971F
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-function! VisualSelection(direction) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
-endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
@@ -345,3 +286,69 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
+
+" Set a nicer foldtext function
+function! FrankFoldText()
+    let line = getline(v:foldstart)
+    if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+        let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+        let linenum = v:foldstart + 1
+        while linenum < v:foldend
+            let line = getline( linenum )
+            let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+            if comment_content != ''
+                break
+            endif
+            let linenum = linenum + 1
+        endwhile
+        let sub = initial . ' ' . comment_content
+    else
+        let sub = line
+        let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+        if startbrace == '{'
+            let line = getline(v:foldend)
+            let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+            if endbrace == '}'
+                let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+            endif
+        endif
+    endif
+    let n = v:foldend - v:foldstart + 1
+    let info = " " . n . " lines"
+    let sub = sub . "                                                                                                                  "
+    let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+    let fold_w = getwinvar( 0, '&foldcolumn' )
+    let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+    return sub . info
+endfunction
+set foldtext=FrankFoldText()
+
+function! MyFilename()
+    let t = ('' != expand('%:t'))
+    if(t)
+        let p = expand('%:p')
+        let r =p
+    else
+        let r = '[No Name]'
+    endif
+    return r
+endfunction
+
+function! MyFugitive()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? ' '._ : ''
+  endif
+  return ''
+endfunction
+
+function! HtmlLint()
+    silent !clear
+    execute "!/Users/frank/bin/html5-lint/html5check.py " . expand("%:p")
+endfunction
+
+function! CssLint()
+    silent !clear
+    execute "!csslint --format=compact " . expand("%:p")
+endfunction
+
