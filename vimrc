@@ -1,4 +1,5 @@
 set nocompatible
+
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
@@ -26,24 +27,31 @@ Plugin 'Shougo/unite.vim'
 Plugin 'othree/html5.vim'
 Plugin 'bling/vim-airline'
 Plugin 'twerth/ir_black'
+Plugin 'vim-scripts/vim-auto-save'
+Plugin 'Shutnik/jshint2.vim'
+Plugin 'jelera/vim-javascript-syntax'
 "Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 call vundle#end()            " required
+filetype plugin indent on    " required
+" All of your Plugins must be added before the above line
 
+
+
+" Put your non-Plugin stuff after this line
+set nolinebreak
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+let g:auto_save = 1  " enable AutoSave on Vim startup
+
+au BufReadPost,FileReadPost *.vm set syntax=html filetype=html
+set mousemodel=extend
 " airline
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 set guifont=Sauce\ Code\ Powerline:h13
 " /airline
-
-" All of your Plugins must be added before the following line
-filetype plugin indent on    " required
-
-" Format the status line
-"    set statusline=%{fugitive#statusline()}
-"                \\ %{HasPaste()}
-"                \\ %<%f\ %h%m%r
-"                \%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}
-"                \%k\ %-14.(Ln:%l,Col:%c%V%)\ %P
 
 
 " fencview
@@ -59,7 +67,7 @@ let g:fencview_autodetect = 0
 	" Use smartcase.
 	let g:neocomplete#enable_smart_case = 1
 	" Set minimum syntax keyword length.
-	let g:neocomplete#sources#syntax#min_keyword_length = 3
+	let g:neocomplete#sources#syntax#min_keyword_length = 2
 	let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 	" Define dictionary.
@@ -152,20 +160,19 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_working_path_mode = 'a'
 " /ctrlp
-
-
-" Put your non-Plugin stuff after this line
 "
 " autocmd VimEnter * NERDTree | wincmd p
 " autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"autocmd WinLeave,BufWinLeave * if expand('%:t') =~ '\.' | set norelativenumber | set nonumber | endif
-"autocmd WinEnter,BufWinEnter,CursorMoved,InsertEnter * if expand('%:t') =~ '\.' | set relativenumber | set number | endif
-autocmd WinLeave,BufWinLeave * if expand('%:t') =~ '\.' | set norelativenumber | endif
-autocmd WinEnter,BufWinEnter,CursorMoved,InsertEnter * if expand('%:t') =~ '\.' | set relativenumber | endif
+"autocmd WinLeave,BufWinLeave * if expand('%:t') =~ '\.' | set norelativenumber | endif
+"autocmd WinEnter,BufWinEnter,CursorMoved,InsertEnter * if expand('%:t') =~ '\.' | set relativenumber | endif
+set relativenumber
 
-cnoreabbrev u Unite file
-cnoreabbrev U Unite
+cnoreabbrev f Unite file -vertical -winwidth=25
+cnoreabbrev b Unite buffer -vertical -winwidth=25
+cnoreabbrev tn tabnext
+cnoreabbrev tp tabprevious
+cnoreabbrev c lcd %:p:h
 
 
 
@@ -211,8 +218,9 @@ set shiftwidth=4
 set tabstop=4
 set lbr
 set ai "autoindent
-set si "smartindent
+set nosi "smartindent
 set wrap "Wrap lines
+set nocindent
 
 map j gj
 map k gk

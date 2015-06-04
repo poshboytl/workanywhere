@@ -1,6 +1,7 @@
 [core]
 	editor = vim
 	autocrlf = input
+	excludesfile = /Users/frank/.config/git/ignore
 [push]
 	default = matching
 [difftool "sourcetree"]
@@ -14,8 +15,15 @@
 	clean = git media clean %f
 	smudge = git media smudge %f
 [diff]
-	tool = vimdiff
+	;tool = vimdiff
 [difftool]
 	prompt = false
 [init]
     templatedir = ~/.config/git/templates
+[http]
+	;proxy = socks5://localhost:1080
+[https]
+	;proxy = socks5://localhost:1080
+[user]
+	name = 
+	email = 
