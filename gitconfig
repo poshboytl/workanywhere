@@ -3,7 +3,7 @@
 	autocrlf = input
 	excludesfile = /Users/frank/.config/git/ignore
 [push]
-	default = matching
+	default = simple
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
