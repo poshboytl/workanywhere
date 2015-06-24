@@ -24,6 +24,3 @@
 	;proxy = socks5://localhost:1080
 [https]
 	;proxy = socks5://localhost:1080
-[user]
-	name = 
-	email = 

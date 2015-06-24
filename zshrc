@@ -43,6 +43,7 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 . ~/GitHub/z/z.sh
 
 #alias rm="trash"
+alias fixjs="fixmyjs -c ~/.jshintrc-online "
 alias ws="open -a WebStorm"
 alias t="~/bin/todo.txt-cli/todo.sh -d ~/bin/todo.txt-cli/todo.cfg"
 alias fuck='$(thefuck $(fc -ln -1))'
