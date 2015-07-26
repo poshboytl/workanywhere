@@ -3,20 +3,22 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
 Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-repeat'
+Plug 'easymotion/vim-easymotion'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-eunuch'
 Plug 'einars/js-beautify'
 Plug 'dsolstad/vim-wombat256i'
 Plug 'vim-scripts/wombat256.vim'
 Plug 'romainl/flattened'
-"Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'vim-scripts/gitignore'
-"Plug 'gorodinskiy/vim-coloresque', {'for':'xxxxx'}
 Plug 'groenewege/vim-less'
+Plug 'vim-scripts/vim-auto-save'
+
 
 Plug 'hail2u/vim-css3-syntax'
 Plug 'kchmck/vim-coffee-script'
@@ -81,6 +83,18 @@ let g:lightline = {
             \ 'subseparator': { 'left': '', 'right': '' }
             \ }
 
+" easymotion
+"map  / <Plug>(easymotion-sn)
+"omap / <Plug>(easymotion-tn)
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+
 " nerdtree
 let g:NERDTreeWinPos = "right"
 let g:nerdtree_tabs_open_on_console_startup = 0
@@ -96,7 +110,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 
-let g:auto_save = 0  " enable AutoSave on Vim startup
+let g:auto_save = 1  " enable AutoSave on Vim startup
 
 " ctrlp
 let g:ctrlp_custom_ignore = {
