@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-repeat'
-Plug 'easymotion/vim-easymotion'
 Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-eunuch'
 Plug 'einars/js-beautify'
@@ -83,15 +82,6 @@ let g:lightline = {
             \ 'subseparator': { 'left': '', 'right': '' }
             \ }
 
-" easymotion
-"map  / <Plug>(easymotion-sn)
-"omap / <Plug>(easymotion-tn)
-"map  n <Plug>(easymotion-next)
-"map  N <Plug>(easymotion-prev)
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
 
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
