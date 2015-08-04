@@ -39,6 +39,7 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 
+alias gminiclone="git clone --depth 1 --branch master "
 alias iojs="/Users/frank/.nvm/versions/io.js/v2.3.4/bin/iojs"
 alias fixjs="fixmyjs -c ~/.jshintrc-online "
 alias ws="open -a WebStorm"
