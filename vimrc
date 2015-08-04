@@ -100,7 +100,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 
-let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save = 0  " enable AutoSave on Vim startup
 
 " ctrlp
 let g:ctrlp_custom_ignore = {
