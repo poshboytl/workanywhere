@@ -2,6 +2,7 @@
 
     "-W100": true,
     "-W083": true,
+    "-W084": true,
     "-W004": true,
 
     "bitwise"       : true,     
