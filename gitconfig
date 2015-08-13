@@ -24,3 +24,10 @@
 	;proxy = socks5://localhost:1080
 [https]
 	;proxy = socks5://localhost:1080
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[user]
+	name = FrankFang
+	email = FrankFang1990@gmail.com
