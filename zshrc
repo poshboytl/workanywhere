@@ -1,5 +1,5 @@
-http_proxy='socks5://127.0.0.1:1080'
-https_proxy='socks5://127.0.0.1:1080'
+#http_proxy='socks5://127.0.0.1:1080'
+#https_proxy='socks5://127.0.0.1:1080'
 #
 # Executes commands at the start of an interactive session.
 #
@@ -37,8 +37,13 @@ export TERM=xterm-256color
 export FZF_COMPLETION_OPTS='+c -x'
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PROXYCHAINS_QUIET_MODE=1
 
 
+alias patom="env http_proxy=socks5://127.0.0.0:1080 \
+        https_proxy=socks5://127.0.0.1:1080 \
+            atom ."
+alias pc="proxychains4"
 alias gminiclone="git clone --depth 1 --branch master "
 alias iojs="/Users/frank/.nvm/versions/io.js/v2.3.4/bin/iojs"
 alias fixjs="fixmyjs -c ~/.jshintrc-online "
@@ -68,6 +73,7 @@ alias gr="git reset"
 alias j="z"
 alias me="mvn eclipse:eclipse"
 alias mci="mvn clean install"
+alias mm="mvn clean install; mvn eclipse:eclipse"
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
 alias nh="node --harmony"
 alias gcob="git checkout -b"
