@@ -31,3 +31,6 @@
 [user]
 	name = FrankFang
 	email = FrankFang1990@gmail.com
+[alias]
+    checkpoint = !git stash; git stash apply
+    co = !sh -c 'git stash; git stash apply; git checkout "$*"'

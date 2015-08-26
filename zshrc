@@ -38,6 +38,8 @@ export FZF_COMPLETION_OPTS='+c -x'
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PROXYCHAINS_QUIET_MODE=1
+export GOPATH="$HOME/go-workplace"
+export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 
 
 alias patom="env http_proxy=socks5://127.0.0.0:1080 \
@@ -51,10 +53,10 @@ alias ws="open -a WebStorm"
 alias t="~/bin/todo.txt-cli/todo.sh -d ~/bin/todo.txt-cli/todo.cfg"
 alias fuck='$(thefuck $(fc -ln -1))'
 alias htmllint="/Users/frank/bin/html5-lint/html5check.py -h -e "
-alias jh="jshint -c ~/.jshintrc --show-non-errors"
-alias c="clear"
+#alias jh="jshint -c ~/.jshintrc --show-non-errors"
+#alias c="clear"
 alias e="vim"
-alias pi='pod install --no-repo-update'
+#alias pi='pod install --no-repo-update'
 alias groovyrun="groovyConsole > /dev/null 2>&1  &"
 alias grepcontent="grep -rnw  . -e"
 alias yd="~/bin/ydcv/ydcv.py"
@@ -70,7 +72,10 @@ alias gcm="git commit . -m update"
 alias gcmp="git commit . -m update && git push"
 alias gpp="git pull && git push"
 alias gr="git reset"
-alias j="z"
+#alias j="z"
+alias j='fasd_cd -d'
+alias jj='fasd_cd -d -i'
+alias v='f -t -e vim -b viminfo'
 alias me="mvn eclipse:eclipse"
 alias mci="mvn clean install"
 alias mm="mvn clean install; mvn eclipse:eclipse"
@@ -94,6 +99,18 @@ alias updatesk="cd ~/Alibaba/sk; svn up .; mci; me; "
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
 
 . ~/GitHub/z/z.sh
+# fasd
+fasd_cache="$HOME/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init posix-alias zsh-hook>| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+# fasd ends
+mk() {
+    mkdir -p -- "$1" &&
+        cd -P -- "$1"
+}
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -145,7 +162,7 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 # svn
 # export PATH=/opt/subversion/bin:$PATH
 
-f() {
+ff() {
   local file
   q=$1
 

@@ -1,6 +1,7 @@
 .vim
 bower_components
 spm_modules
+.Ulysses-Group.plist
 
 # Automatically created by GitHub for Mac
 
