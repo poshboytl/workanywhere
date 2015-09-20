@@ -1,22 +1,7 @@
-#http_proxy='socks5://127.0.0.1:1080'
-#https_proxy='socks5://127.0.0.1:1080'
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
+skip_global_compinit=1
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-
-# Customize to your needs...
-#export GHC_DOT_APP="/Applications/ghc.app"
-#if [ -d "$GHC_DOT_APP" ]; then
-    #export PATH="${HOME}/.cabal/bin:${GHC_DOT_APP}/Contents/bin:${PATH}"
-#fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -42,15 +27,16 @@ export GOPATH="$HOME/go-workplace"
 export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 
 
-alias patom="env http_proxy=socks5://127.0.0.0:1080 \
-        https_proxy=socks5://127.0.0.1:1080 \
-            atom ."
 alias pc="proxychains4"
-alias gminiclone="git clone --depth 1 --branch master "
-alias iojs="/Users/frank/.nvm/versions/io.js/v2.3.4/bin/iojs"
+alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
+alias changed='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
+alias change='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
+alias changelog='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
+#alias gminiclone="git clone --depth 1 --branch master "
+#alias iojs="/Users/frank/.nvm/versions/io.js/v2.3.4/bin/iojs"
 alias fixjs="fixmyjs -c ~/.jshintrc-online "
-alias ws="open -a WebStorm"
-alias t="~/bin/todo.txt-cli/todo.sh -d ~/bin/todo.txt-cli/todo.cfg"
+#alias ws="open -a WebStorm"
+#alias t="~/bin/todo.txt-cli/todo.sh -d ~/bin/todo.txt-cli/todo.cfg"
 alias fuck='$(thefuck $(fc -ln -1))'
 alias htmllint="/Users/frank/bin/html5-lint/html5check.py -h -e "
 #alias jh="jshint -c ~/.jshintrc --show-non-errors"
@@ -85,6 +71,7 @@ alias gcob="git checkout -b"
 alias gco="git checkout"
 alias dnstest="sudo networksetup -setdnsservers Wi-Fi 10.125.6.241"
 alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
+alias dnsrepre=" sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
 alias dnspre="sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
 alias vpnopen="scutil --nc start '云梯 新加坡1号 PPTP'"
 alias vpnclose="scutil --nc stop '云梯 新加坡1号 PPTP'"
@@ -98,20 +85,22 @@ alias s="search"
 alias updatesk="cd ~/Alibaba/sk; svn up .; mci; me; "
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
 
-. ~/GitHub/z/z.sh
+#. ~/GitHub/z/z.sh
 # fasd
 fasd_cache="$HOME/.fasd-init-bash"
 if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-  fasd --init posix-alias zsh-hook>| "$fasd_cache"
+  fasd --init posix-alias >| "$fasd_cache"
 fi
 source "$fasd_cache"
 unset fasd_cache
 # fasd ends
+
 mk() {
     mkdir -p -- "$1" &&
         cd -P -- "$1"
 }
 
+# ctrl-z
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -123,6 +112,7 @@ fancy-ctrl-z () {
 }
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
+# end
 
 groot() {
     cd "$(git rev-parse --show-toplevel)"
@@ -133,23 +123,12 @@ search() {
     find . -type d -iname $str;
 }
 
-unalias z 2> /dev/null
-z() {
-  if [[ -z "$*" ]]; then
-    cd "$(_z -l 2>&1 | fzf +s | sed 's/^[0-9,.]* *//')"
-  else
-    _last_z_args="$@"
-    _z "$@"
-  fi
-}
-
-# export PATH="/Applications/calibre.app/Contents/MacOS:$PATH"
 
 # nvm
-export NVM_DIR="/Users/frank/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#export NVM_DIR="/Users/frank/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
+#[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 
 # java
 export JAVA_HOME=$(/usr/libexec/java_home)
@@ -159,15 +138,12 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 #export PATH="$HOME/.jenv/bin:$PATH"
 #eval "$(jenv init -)"
 
-# svn
-# export PATH=/opt/subversion/bin:$PATH
-
-ff() {
+f() {
   local file
   q=$1
 
   file=$(fzf --query="$q" --select-1 --exit-0 -x)
-  [ -n "$file" ] && vim "$file" ; echo "fzf: bye~"
+  [ -n "$file" ] && vim "$file" ; echo "fzf: bye"
 }
 
 fd() {
@@ -186,17 +162,7 @@ fs(){
     grep --line-buffered --color=never -r "$q" * | fzf 
 }
 
-fr(){
-    q=$1
-    if [ -z "$q"] ;then
-        q="."
-    fi
-    grep --line-buffered --color=never -rh -E "$q" * | fzf
-}
 checkport(){
 	sudo lsof -nP -iTCP:$1
 }
-
-# Change iterm2 profile. Usage it2prof ProfileName (case sensitive)
-it() { echo -e "\033]50;SetProfile=$1\a" }
 
