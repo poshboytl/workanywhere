@@ -1,9 +1,11 @@
 skip_global_compinit=1
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/bin/zsh-git-prompt/zshrc.sh ] && source ~/bin/zsh-git-prompt/zshrc.sh
+
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=/Users/frank/.boot2docker/certs/boot2docker-vm
@@ -29,11 +31,11 @@ export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 
 alias pc="proxychains4"
 alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
+alias gcl="git clone"
 alias changed='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
 alias change='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
 alias changelog='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
 #alias gminiclone="git clone --depth 1 --branch master "
-#alias iojs="/Users/frank/.nvm/versions/io.js/v2.3.4/bin/iojs"
 alias fixjs="fixmyjs -c ~/.jshintrc-online "
 #alias ws="open -a WebStorm"
 #alias t="~/bin/todo.txt-cli/todo.sh -d ~/bin/todo.txt-cli/todo.cfg"
@@ -66,7 +68,6 @@ alias me="mvn eclipse:eclipse"
 alias mci="mvn clean install"
 alias mm="mvn clean install; mvn eclipse:eclipse"
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
-alias nh="node --harmony"
 alias gcob="git checkout -b"
 alias gco="git checkout"
 alias dnstest="sudo networksetup -setdnsservers Wi-Fi 10.125.6.241"

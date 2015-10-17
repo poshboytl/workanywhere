@@ -138,8 +138,6 @@ let g:vim_markdown_folding_disabled=1
 autocmd FileType ruby nnoremap <F5> :!ruby %<cr>
 autocmd FileType ruby inoremap <F5> <ESC>:!ruby %<cr>
 
-map <leader>s :set foldmethod=manual<cr>
-
 " tab
 map <leader>1 :tabnext 1<cr>
 map <leader>2 :tabnext 2<cr>
@@ -156,7 +154,7 @@ nnoremap <C-T> :tabnew %:p:h<CR>
 " fold
 set foldenable
 set foldlevel=10
-set foldmethod=manual
+set foldmethod=indent
 set foldnestmax=5
 nnoremap <space> za
 vnoremap <space> zf
@@ -185,6 +183,7 @@ autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT,MERGE}* set fenc=utf8
 
 
 " better
+set lazyredraw
 map q: :q
 "vnoremap <silent> y y`]
 "vnoremap <silent> p p`]
