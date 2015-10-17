@@ -63,7 +63,6 @@ alias gr="git reset"
 #alias j="z"
 alias j='fasd_cd -d'
 alias jj='fasd_cd -d -i'
-alias v='f -t -e vim -b viminfo'
 alias me="mvn eclipse:eclipse"
 alias mci="mvn clean install"
 alias mm="mvn clean install; mvn eclipse:eclipse"
