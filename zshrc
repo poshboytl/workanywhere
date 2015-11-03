@@ -1,9 +1,6 @@
 skip_global_compinit=1
-<<<<<<< HEAD
-=======
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
->>>>>>> 3f4f434cd3b1905e4a41e511830a34f079ba2a58
 [ -f ~/bin/zsh-git-prompt/zshrc.sh ] && source ~/bin/zsh-git-prompt/zshrc.sh
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
