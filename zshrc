@@ -1,5 +1,6 @@
 skip_global_compinit=1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zshrc-local ] && source ~/.zshrc-local
 [ -f ~/bin/zsh-git-prompt/zshrc.sh ] && source ~/bin/zsh-git-prompt/zshrc.sh
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -27,8 +28,10 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PROXYCHAINS_QUIET_MODE=1
 export GOPATH="$HOME/go-workplace"
 export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
+export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
 
 
+alias npm3="npm3 --registry="http://registry.npm.alibaba-inc.com""
 alias pc="proxychains4"
 alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
 alias gcl="git clone"
@@ -70,6 +73,7 @@ alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\
 alias gcob="git checkout -b"
 alias gco="git checkout"
 alias dnstest="sudo networksetup -setdnsservers Wi-Fi 10.125.6.241"
+alias dns114="sudo networksetup -setdnsservers Wi-Fi 114.114.114.114"
 alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
 alias dnsrepre=" sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
 alias dnspre="sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
@@ -165,4 +169,3 @@ fs(){
 checkport(){
 	sudo lsof -nP -iTCP:$1
 }
-
