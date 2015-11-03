@@ -1,4 +1,9 @@
 skip_global_compinit=1
+<<<<<<< HEAD
+=======
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.zshrc-local ] && source ~/.zshrc-local
+>>>>>>> 3f4f434cd3b1905e4a41e511830a34f079ba2a58
 [ -f ~/bin/zsh-git-prompt/zshrc.sh ] && source ~/bin/zsh-git-prompt/zshrc.sh
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -29,6 +34,7 @@ export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
 
 
+alias npm3="npm3 --registry="http://registry.npm.alibaba-inc.com""
 alias pc="proxychains4"
 alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
 alias gcl="git clone"
@@ -71,6 +77,7 @@ alias gcob="git checkout -b"
 alias gco="git checkout"
 alias dnstest="sudo networksetup -setdnsservers Wi-Fi 10.125.6.241"
 alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110"
+alias dns114="sudo networksetup -setdnsservers Wi-Fi 114.114.114.114"
 alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
 alias dnsrepre=" sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
 alias dnspre="sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
@@ -187,4 +194,3 @@ fshow() {
 checkport(){
 	sudo lsof -nP -iTCP:$1
 }
-
