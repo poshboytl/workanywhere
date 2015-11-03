@@ -2,6 +2,7 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
+Plug 'CodeFalling/fcitx-vim-osx'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-repeat'
 Plug 'SirVer/ultisnips'
@@ -110,6 +111,8 @@ let g:ctrlp_custom_ignore = {
             \ }
 "let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <c-b> :CtrlPBuffer<CR>
+inoremap <c-b> <ESC>:CtrlPBuffer<CR>
 let g:ctrlp_use_caching = 0
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
