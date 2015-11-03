@@ -26,6 +26,7 @@
 ||slides.com
 ||wordpress.com
 ||nwhitehead.github.io
+||teamtreehouse.com
 ||25.io
 ||s3.amazonaws.com
 ||safari-extensions.apple.com
@@ -70,9 +71,9 @@
 ||biomotionlab.ca
 ||slides.com
 ||fonts.googleapis.com
-||twitter.com
 ||slid.es
 ||slides.com
 ||cesanta.com
 ||assets.servedby-buysellads.com
 ||www.samuel-medvedowsky.com
+||classeur.io
