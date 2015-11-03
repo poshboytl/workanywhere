@@ -1,5 +1,4 @@
 skip_global_compinit=1
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/bin/zsh-git-prompt/zshrc.sh ] && source ~/bin/zsh-git-prompt/zshrc.sh
 
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -27,6 +26,7 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PROXYCHAINS_QUIET_MODE=1
 export GOPATH="$HOME/go-workplace"
 export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
+export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
 
 
 alias pc="proxychains4"
@@ -70,6 +70,7 @@ alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\
 alias gcob="git checkout -b"
 alias gco="git checkout"
 alias dnstest="sudo networksetup -setdnsservers Wi-Fi 10.125.6.241"
+alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110"
 alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
 alias dnsrepre=" sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
 alias dnspre="sudo networksetup -setdnsservers Wi-Fi 10.125.13.56"
@@ -160,6 +161,27 @@ fs(){
     fi
     #grep --line-buffered --color=never -rh "$q" * | fzf 
     grep --line-buffered --color=never -r "$q" * | fzf 
+}
+# fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
+fshow() {
+  local out shas sha q k
+  while out=$(
+      git log --graph --color=always \
+          --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+      fzf --ansi --multi --no-sort --reverse --query="$q" \
+          --print-query --expect=ctrl-d --toggle-sort=\`); do
+    q=$(head -1 <<< "$out")
+    k=$(head -2 <<< "$out" | tail -1)
+    shas=$(sed '1,2d;s/^[^a-z0-9]*//;/^$/d' <<< "$out" | awk '{print $1}')
+    [ -z "$shas" ] && continue
+    if [ "$k" = ctrl-d ]; then
+      git diff --color=always $shas | less -R
+    else
+      for sha in $shas; do
+        git show --color=always $sha | less -R
+      done
+    fi
+  done
 }
 
 checkport(){

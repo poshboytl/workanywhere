@@ -1,5 +1,7 @@
 ||quora.com
 ||karelia.com
+||amazonaws.com
+||beachphotos.cn
 ||medium.com
 ||speakerdeck.com
 ||safari-extensions.apple.com
@@ -19,9 +21,12 @@
 ||google.com.hk
 ||doublepimp.com
 ||google.com
+||ifttt.com
+||rawgit.com
 ||git-tower.com
 ||html5rocks.com
 ||getpocket.com
+||quip.com
 ||slides.com
 ||wordpress.com
 ||nwhitehead.github.io

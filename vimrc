@@ -355,3 +355,4 @@ function! CssLint()
     execute "!csslint --format=compact " . expand("%:p")
 endfunction
 
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
