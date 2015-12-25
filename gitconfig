@@ -1,6 +1,7 @@
 [core]
 	editor = vim
 	autocrlf = input
+    quotepath = false
 	excludesfile = /Users/frank/.config/git/ignore
 [push]
 	default = simple

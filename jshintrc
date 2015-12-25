@@ -22,7 +22,7 @@
     "plusplus"      : false,
     "quotmark"      : false, 
     "undef"         : true,   
-    "unused"        : false,  
+    "unused"        : "vars",
     "strict"        : false, 
     "maxparams"     : false,
     "maxdepth"      : false,

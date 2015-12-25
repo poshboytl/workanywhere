@@ -1,4 +1,8 @@
 ||quora.com
+||jetbrains.com
+||webupd8.org
+||cloudfront.net
+||asana.com
 ||dexetra.com
 ||karelia.com
 ||amazonaws.com
@@ -10,9 +14,13 @@
 ||dropbox.com
 ||evernote.com
 ||cloudfront.net
+||fonts.googleapis.com
 ||github.com
+||t.co
+||medium.com
 ||makethatapp.com
 ||beeg.com
+||mozilla.net
 ||twitter.com
 ||osdn.jp
 ||getpocket.com

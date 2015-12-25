@@ -2,42 +2,31 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
-Plug 'CodeFalling/fcitx-vim-osx'
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-repeat'
-Plug 'SirVer/ultisnips'
-Plug 'tpope/vim-eunuch'
-Plug 'einars/js-beautify'
-Plug 'dsolstad/vim-wombat256i'
-Plug 'vim-scripts/wombat256.vim'
-Plug 'romainl/flattened'
+"Plug 'vim-scripts/JavaScript-Indent'
 Plug 'Yggdroot/indentLine'
-Plug 'ervandew/supertab'
-Plug 'honza/vim-snippets'
-Plug 'itchyny/lightline.vim'
-Plug 'vim-scripts/gitignore'
-Plug 'groenewege/vim-less'
-Plug 'vim-scripts/vim-auto-save'
-
-
-Plug 'hail2u/vim-css3-syntax'
-Plug 'kchmck/vim-coffee-script'
-Plug 'maksimr/vim-jsbeautify'
-
-Plug 'jelera/vim-javascript-syntax'
-Plug 'mattn/emmet-vim'
-Plug 'sjl/gundo.vim'
-Plug 'othree/html5.vim'
-Plug 'plasticboy/vim-markdown'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-scripts/EasyGrep'
-Plug 'vim-scripts/vim-auto-save'
-Plug 'tomasr/molokai'
 Plug 'altercation/vim-colors-solarized'
-Plug 'gregsexton/gitv'
+Plug 'dsolstad/vim-wombat256i'
+Plug 'einars/js-beautify'
+Plug 'ervandew/supertab'
+Plug 'groenewege/vim-less'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'pangloss/vim-javascript'
+"Plug 'jelera/vim-javascript-syntax'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'kchmck/vim-coffee-script'
+Plug 'kien/ctrlp.vim'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'mattn/emmet-vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'romainl/flattened'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'sjl/gundo.vim'
+Plug 'tomasr/molokai'
+Plug 'vim-scripts/gitignore'
+Plug 'vim-scripts/vim-auto-save'
+Plug 'vim-scripts/wombat256.vim'
+Plug 'elzr/vim-json'
 
 
 
@@ -47,6 +36,10 @@ call plug#end()
 filetype plugin indent on    " required 2
 syntax enable
 
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:syntastic_json_checkers = ['jsonlint']
+let g:vim_json_syntax_conceal = 0
 set guioptions-=L
 set guioptions-=r 
 let mapleader = "\<space>"
@@ -159,14 +152,14 @@ set foldenable
 set foldlevel=10
 set foldmethod=indent
 set foldnestmax=5
-nnoremap <space> za
-vnoremap <space> zf
+nnoremap <space><space> za
+vnoremap <space><space> zf
 "autocmd FileType javascript call JavaScriptFold()
 
 " beautify
-autocmd FileType css noremap <buffer> <C-l> :call CSSBeautify()<cr>
+autocmd FileType css noremap <buffer> <C-l> mz<C-U>:call CSSBeautify()<cr>`z<ESC>zz
 autocmd FileType css noremap <buffer> <C-h> :call CssLint()<cr>
-autocmd FileType html noremap <buffer> <C-l> :call HtmlBeautify()<cr>
+autocmd FileType html noremap <buffer> <C-l> mz<C-U>:call HtmlBeautify()<cr>`z<ESC>zz
 autocmd FileType html noremap <buffer> <C-h> :call HtmlLint()<cr>
 autocmd FileType javascript noremap <buffer>  <C-l> mz<C-U>:call JsBeautify()<cr>`z<ESC>zz
 autocmd FileType javascript noremap <buffer>  <C-h> :JSHint()<cr>
@@ -213,9 +206,9 @@ vnoremap <C-T> :tabnew %:p:h<CR>
 noremap <F11> <C-u>:wincmd o<CR>
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif " Return to last edit position when opening files (You want this!)
 set autoindent
+set nosmartindent
 set nocindent
 set backspace=eol,start,indent
-set nosmartindent
 set background=dark
 "set completeopt=menuone
 set expandtab
@@ -268,6 +261,12 @@ set colorcolumn=120
 hi MatchParen term=reverse cterm=bold ctermfg=red ctermbg=none gui=bold guifg=#000000 guibg=#FD971F
 
 
+" status line
+if has("statusline")
+    set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P
+endif
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -294,40 +293,40 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 " Set a nicer foldtext function
-function! FrankFoldText()
-    let line = getline(v:foldstart)
-    if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
-        let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
-        let linenum = v:foldstart + 1
-        while linenum < v:foldend
-            let line = getline( linenum )
-            let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
-            if comment_content != ''
-                break
-            endif
-            let linenum = linenum + 1
-        endwhile
-        let sub = initial . ' ' . comment_content
-    else
-        let sub = line
-        let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
-        if startbrace == '{'
-            let line = getline(v:foldend)
-            let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
-            if endbrace == '}'
-                let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
-            endif
-        endif
-    endif
-    let n = v:foldend - v:foldstart + 1
-    let info = " " . n . " lines"
-    let sub = sub . "                                                                                                                  "
-    let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
-    let fold_w = getwinvar( 0, '&foldcolumn' )
-    let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
-    return sub . info
-endfunction
-set foldtext=FrankFoldText()
+"function! FrankFoldText()
+    "let line = getline(v:foldstart)
+    "if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
+        "let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
+        "let linenum = v:foldstart + 1
+        "while linenum < v:foldend
+            "let line = getline( linenum )
+            "let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
+            "if comment_content != ''
+                "break
+            "endif
+            "let linenum = linenum + 1
+        "endwhile
+        "let sub = initial . ' ' . comment_content
+    "else
+        "let sub = line
+        "let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
+        "if startbrace == '{'
+            "let line = getline(v:foldend)
+            "let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
+            "if endbrace == '}'
+                "let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
+            "endif
+        "endif
+    "endif
+    "let n = v:foldend - v:foldstart + 1
+    "let info = " " . n . " lines"
+    "let sub = sub . "                                                                                                                  "
+    "let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
+    "let fold_w = getwinvar( 0, '&foldcolumn' )
+    "let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
+    "return sub . info
+"endfunction
+"set foldtext=FrankFoldText()
 
 function! MyFilename()
     let t = ('' != expand('%:t'))

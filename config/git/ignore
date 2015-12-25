@@ -1,4 +1,5 @@
 .vim
+.flowconfig
 bower_components
 spm_modules
 .Ulysses-Group.plist
