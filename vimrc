@@ -24,7 +24,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'sjl/gundo.vim'
 Plug 'tomasr/molokai'
 Plug 'vim-scripts/gitignore'
-Plug 'vim-scripts/vim-auto-save'
 Plug 'vim-scripts/wombat256.vim'
 Plug 'elzr/vim-json'
 

@@ -1,7 +1,8 @@
-skip_global_compinit=1
+Iskip_global_compinit=1
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc-local ] && source ~/.zshrc-local
-[ -f ~/bin/zsh-git-prompt/zshrc.sh ] && source ~/bin/zsh-git-prompt/zshrc.sh
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -f ~/Dropbox/repos/zsh-git-prompt/zshrc.sh ] && source ~/Dropbox/repos/zsh-git-prompt/zshrc.sh
 [ -f ~/Dropbox/bin/z/z.sh ] && source  ~/Dropbox/bin/z/z.sh
 export NVM_DIR="/Users/frank/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -9,25 +10,23 @@ export NVM_DIR="/Users/frank/.nvm"
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
+unalias b
 
 
-export PATH="/usr/local/Cellar/vim/7.4.488/bin:$PATH"
+export PATH="${ZDOTDIR:-$HOME}/Dropbox/bin:$PATH"
+export PATH="$(brew --prefix vim)/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 export PATH="${ZDOTDIR:-$HOME}/bin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="$(brew --prefix homebrew/php/php55)/bin:$PATH"
 export XDG_CONFIG_HOME=${ZDOTDIR:-$HOME}/.config
-export DOCKER_HOST=tcp://192.168.59.103:2376
-export DOCKER_CERT_PATH=/Users/frank/.boot2docker/certs/boot2docker-vm
-export DOCKER_TLS_VERIFY=1
 export N_PREFIX=${ZDOTDIR:-$HOME}/bin
 export JSBIN_CONFIG=${ZDOTDIR:-$HOME}/.jsbin.config.json
 export TODO_SH="t"
 export TODO_FULL_SH="t"
-export HOMEBREW_EDITOR="nvim"
-export SVN_EDITOR="nvim"
-export EDITOR="nvim"
-export VISUAL="nvim"
+export HOMEBREW_EDITOR="vim"
+export SVN_EDITOR="vim"
+export EDITOR="vim"
+export VISUAL="vim"
 export TERM=xterm-256color
 export FZF_COMPLETION_OPTS='+c -x'
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
@@ -37,6 +36,7 @@ export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
 
 
 alias npm3="npm3 --registry="http://registry.npm.alibaba-inc.com""
+#alias b="~/Dropbox/bin/b"
 alias pc="proxychains4"
 alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
 alias gcl="git clone"
@@ -51,11 +51,11 @@ alias fuck='$(thefuck $(fc -ln -1))'
 alias htmllint="/Users/frank/bin/html5-lint/html5check.py -h -e "
 #alias jh="jshint -c ~/.jshintrc --show-non-errors"
 #alias c="clear"
-alias e="nvim"
+alias e="vim"
 #alias pi='pod install --no-repo-update'
 alias groovyrun="groovyConsole > /dev/null 2>&1  &"
 alias grepcontent="grep -rnw  . -e"
-alias yd="~/bin/ydcv/ydcv.py"
+alias yd="~/Dropbox/bin/ydcv/ydcv.py"
 alias gst="git status -sb"
 alias gl="git pull"
 alias gll="git pull ; git submodule update"
@@ -80,6 +80,7 @@ alias gco="git checkout"
 alias dnstest="sudo networksetup -setdnsservers Wi-Fi 10.125.6.241; echo 10.125.6.241"
 alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110; echo 178.79.131.110"
 alias dns114="sudo networksetup -setdnsservers Wi-Fi 114.114.114.114; echo 114.114.114.114"
+alias dns8="sudo networksetup -setdnsservers Wi-Fi 8.8.8.8; echo 8.8.8.8"
 alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty; echo reset"
 alias dnspre="sudo networksetup -setdnsservers Wi-Fi 10.125.13.56; echo 10.125.13.56"
 alias vpnopen="scutil --nc start '云梯 新加坡1号 PPTP'"
@@ -88,10 +89,10 @@ alias loggoagent="tail /var/log/goagent.log -f"
 alias findcontent="fs"
 alias emacsapp="open -a emacs"
 alias neversleep="pmset noidle"
-alias vim="nvim"
-alias thevim="/usr/local/Cellar/vim/7.4.488/bin/vim"
-alias vi="nvim"
-alias i="nvim"
+alias vim="vim"
+alias thevim="$(brew --prefix vim)/bin/vim"
+alias vi="vim"
+alias i="vim"
 alias s="search"
 alias updatesk="cd ~/Alibaba/sk; svn up .; mci; me; "
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
@@ -137,8 +138,7 @@ search() {
 
 # java
 #export JAVA_HOME=$(/usr/libexec/java_home)
-#export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
-export JAVA_HOME="`/usr/libexec/java_home -v '1.8*'`"
+export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
 #export JETTY_HOME=/Users/frank/bin/jetty-distribution-7.2.0.v20101020/
 
 # jenv
@@ -149,15 +149,21 @@ f() {
   local file
   q=$1
 
-  file=$(fzf --query="$q" --select-1 --exit-0 -x)
-  [ -n "$file" ] && nvim "$file" ; echo "fzf: bye"
+  file=$(ag -l -g ""| fzf --query="$q" --select-1 --exit-0 -x)
+  [ -n "$file" ] && vim "$file" ; echo "fzf: bye"
 }
+
 
 fd() {
   local dir
 
   dir=$(find . -path '*/\.*' -prune -o -type d -print | fzf +m) &&
   cd "$dir"
+}
+cdf() {
+   local file
+   local dir
+   file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"
 }
 
 fs(){
@@ -166,7 +172,7 @@ fs(){
         q="."
     fi
     #grep --line-buffered --color=never -rh "$q" * | fzf 
-    grep --line-buffered --color=never -r "$q" * | fzf 
+    ag "$q" | fzf 
 }
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
 fshow() {
