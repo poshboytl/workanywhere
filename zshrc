@@ -28,8 +28,6 @@ export SVN_EDITOR="vim"
 export EDITOR="vim"
 export VISUAL="vim"
 export TERM=xterm-256color
-export FZF_COMPLETION_OPTS='+c -x'
-export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export PROXYCHAINS_QUIET_MODE=1
 export GOPATH="$HOME/go-workplace"
 export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
@@ -145,22 +143,25 @@ export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
 #export PATH="$HOME/.jenv/bin:$PATH"
 #eval "$(jenv init -)"
 
+export FZF_COMPLETION_OPTS='+c -x'
+export FZF_DEFAULT_COMMAND='ag -l -g ""'
 f() {
   local file
   q=$1
 
-  file=$(ag -l -g ""| fzf --query="$q" --select-1 --exit-0 -x)
+  #file=$(ag -l -g ""| fzf --query="$q" --select-1 --exit-0 -x)
+  file=$( fzf --query="$q" --select-1 --exit-0 -x)
   [ -n "$file" ] && vim "$file" ; echo "fzf: bye"
 }
 
 
-fd() {
-  local dir
+#fd() {
+  #local dir
 
-  dir=$(find . -path '*/\.*' -prune -o -type d -print | fzf +m) &&
-  cd "$dir"
-}
-cdf() {
+  #dir=$(find . -path '*/\.*' -prune -o -type d -print | fzf +m) &&
+  #cd "$dir"
+#}
+fd() {
    local file
    local dir
    file=$(fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir"

@@ -3,5 +3,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 git clone https://github.com/olivierverdier/zsh-git-prompt.git ~/bin/zsh-git-prompt;
 
+brew install ag;
 
 
