@@ -4,5 +4,5 @@ if ! [ -f ~/.ssh/id_rsa ]; then
 	pbcopy < ~/.ssh/id_rsa.pub
 	cat ~/.ssh/id_rsa.pub
 else
-	echo 'ssh key ok'
+	cat ~/.ssh/id_rsa.pub
 fi
