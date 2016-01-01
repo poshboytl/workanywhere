@@ -12,9 +12,6 @@ brew install git
 command_exists wget || brew install wget
 brew install proxychains-ng
 
-# tnpm
-command_exists tnpm || npm i -g tnpm --registry=http://registry.npm.alibaba-inc.com
-
 
 # vim
 if ! [ -f ~/.vim/autoload/plug.vim ]; then
