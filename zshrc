@@ -37,6 +37,7 @@ alias npm3="npm3 --registry="http://registry.npm.alibaba-inc.com""
 alias pc="proxychains4"
 alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
 alias gcl="git clone"
+alias rm="trash"
 alias changed='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
 alias change='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
 alias changelog='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'

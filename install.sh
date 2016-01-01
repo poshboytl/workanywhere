@@ -7,6 +7,7 @@ command_exists brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/H
 brew install coreutils
 brew install vim
 command_exists zsh || brew install zsh
+command_exists trash || brew install trash
 command_exists node || brew install node
 brew install git
 command_exists wget || brew install wget
