@@ -7,10 +7,13 @@ command_exists brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/H
 brew install coreutils
 brew install vim
 command_exists zsh || brew install zsh
+command_exists node || brew install node
 brew install git
 command_exists wget || brew install wget
 brew install proxychains-ng
 
+# tnpm
+command_exists tnpm || npm i -g tnpm --registry=http://registry.npm.alibaba-inc.com
 
 
 # vim
@@ -25,7 +28,7 @@ vim -c ":PlugInstall"
 
 #### z
 if ! [ -d ~/Repos/z ]; then 
-mkdir -p '~/Repos/z' && git clone --depth=1 --branch=master https://github.com/rupa/z.git ~/Repos/z
+mkdir -p ~/Repos/z && git clone --depth=1 --branch=master https://github.com/rupa/z.git ~/Repos/z
 fi
 
 #### fzf
