@@ -1,9 +1,8 @@
 Iskip_global_compinit=1
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f ~/.zshrc-local ] && source ~/.zshrc-local
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-[ -f ~/Dropbox/repos/zsh-git-prompt/zshrc.sh ] && source ~/Dropbox/repos/zsh-git-prompt/zshrc.sh
-[ -f ~/Dropbox/bin/z/z.sh ] && source  ~/Dropbox/bin/z/z.sh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+#[ -f ~/Dropbox/repos/zsh-git-prompt/zshrc.sh ] && source ~/Dropbox/repos/zsh-git-prompt/zshrc.sh
+[ -f ~/Repos/z/z.sh ] && source  ~/Repos/z/z.sh
 export NVM_DIR="/Users/frank/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
@@ -30,7 +29,7 @@ export VISUAL="vim"
 export TERM=xterm-256color
 export PROXYCHAINS_QUIET_MODE=1
 export GOPATH="$HOME/go-workplace"
-export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
+#export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
 
 
 alias npm3="npm3 --registry="http://registry.npm.alibaba-inc.com""
@@ -87,7 +86,6 @@ alias loggoagent="tail /var/log/goagent.log -f"
 alias findcontent="fs"
 alias emacsapp="open -a emacs"
 alias neversleep="pmset noidle"
-alias vim="vim"
 alias thevim="$(brew --prefix vim)/bin/vim"
 alias vi="vim"
 alias i="vim"
