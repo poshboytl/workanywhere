@@ -44,3 +44,9 @@ fi
 [ -f ~/.zlogin ] || zsh ./zpreztorc_init
 [ -f ~/.zshrc ]  && mv ~/.zshrc ~/.zshrc.old
 ln -s $(realpath ./zshrc) ~/.zshrc && echo "~/.zshrc copied"
+
+#### git
+[ -f ~/.gitconfig ] && mv ~/.gitconfig ~/.gitconfig.old 
+ln -s $(realpath ./gitconfig) ~/.gitconfig && echo "~/.gitconfig copied"
+[ -d ~/.config ] && mv ~/.config ~/.config.old
+ln -s $(realpath ./config) ~/.config && echo "~/.config copied"

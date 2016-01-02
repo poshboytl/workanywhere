@@ -2,15 +2,9 @@
 	editor = vim
 	autocrlf = input
     quotepath = false
-	excludesfile = /Users/frank/.config/git/ignore
+	excludesfile = ~/.config/git/ignore
 [push]
-	default = simple
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+	default = matching
 [filter "media"]
 	required = true
 	clean = git media clean %f
