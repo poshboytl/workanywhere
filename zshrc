@@ -2,7 +2,7 @@ http_proxy=socks5://127.0.0.1:1080
 https_proxy=socks5://127.0.0.1:1080
 Iskip_global_compinit=1
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-#[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 #[ -f ~/Dropbox/repos/zsh-git-prompt/zshrc.sh ] && source ~/Dropbox/repos/zsh-git-prompt/zshrc.sh
 [ -f ~/Repos/z/z.sh ] && source  ~/Repos/z/z.sh
 export NVM_DIR="/Users/frank/.nvm"
@@ -86,7 +86,6 @@ alias dnspre="sudo networksetup -setdnsservers Wi-Fi 10.125.13.56; echo 10.125.1
 alias vpnopen="scutil --nc start '云梯 新加坡1号 PPTP'"
 alias vpnclose="scutil --nc stop '云梯 新加坡1号 PPTP'"
 alias loggoagent="tail /var/log/goagent.log -f"
-alias findcontent="fs"
 alias emacsapp="open -a emacs"
 alias neversleep="pmset noidle"
 alias thevim="$(brew --prefix vim)/bin/vim"
@@ -169,12 +168,13 @@ fd() {
 }
 
 fs(){
+    local file
     q=$1
     if [ -z "$q"] ;then
         q="."
     fi
     #grep --line-buffered --color=never -rh "$q" * | fzf 
-    ag "$q" | fzf 
+    file=$(ag "$q" | fzf)
 }
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
 fshow() {

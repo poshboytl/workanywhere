@@ -22,7 +22,6 @@ fi
 [ -f ~/.vimrc ] &&  mv ~/.vimrc ~/.vimrc.old 
 ln -s $(realpath ./vimrc) ~/.vimrc && echo "~/.vimrc copied"
 vim -c ":PlugInstall"
-#vim -c ":PlugInstall<CR>|qa"
 
 #### z
 if ! [ -d ~/Repos/z ]; then 
