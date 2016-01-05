@@ -1,9 +1,8 @@
-http_proxy=socks5://127.0.0.1:1080
-https_proxy=socks5://127.0.0.1:1080
+#http_proxy=socks5://127.0.0.1:1080
+#https_proxy=socks5://127.0.0.1:1080
 Iskip_global_compinit=1
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
-#[ -f ~/Dropbox/repos/zsh-git-prompt/zshrc.sh ] && source ~/Dropbox/repos/zsh-git-prompt/zshrc.sh
 [ -f ~/Repos/z/z.sh ] && source  ~/Repos/z/z.sh
 export NVM_DIR="/Users/frank/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -95,6 +94,8 @@ alias s="search"
 alias updatesk="cd ~/Alibaba/sk; svn up .; mci; me; "
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
 
+[ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
+#PROMPT='%B%m%~%b$(git_super_status) %# '
 unalias z
 z() {
   if [[ -z "$*" ]]; then
@@ -135,8 +136,8 @@ search() {
 
 
 # java
-#export JAVA_HOME=$(/usr/libexec/java_home)
-export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
+export JAVA_HOME=$(/usr/libexec/java_home)
+#export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
 #export JETTY_HOME=/Users/frank/bin/jetty-distribution-7.2.0.v20101020/
 
 # jenv
@@ -205,3 +206,4 @@ checkport(){
 iciba(){
     open "http://iciba.com/$1"
 }
+up(){ DEEP=$1; [ -z "${DEEP}" ] && { DEEP=1; }; for i in $(seq 1 ${DEEP}); do cd ../; done; }

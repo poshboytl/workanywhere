@@ -28,6 +28,12 @@ if ! [ -d ~/Repos/z ]; then
 mkdir -p ~/Repos/z && git clone --depth=1 --branch=master https://github.com/rupa/z.git ~/Repos/z
 fi
 
+###
+
+if ! [ -d ~/Repos/zsh-git-prompt ]; then
+    mkdir -p ~/Repos/zsh-git-prompt && git clone --depth=1 --branch=master https://github.com/olivierverdier/zsh-git-prompt.git ~/Repos/zsh-git-prompt
+fi
+
 #### fzf
 if ! (command_exists fzf); then 
     brew install ag
@@ -49,3 +55,7 @@ ln -s $(realpath ./zshrc) ~/.zshrc && echo "~/.zshrc copied"
 ln -s $(realpath ./gitconfig) ~/.gitconfig && echo "~/.gitconfig copied"
 [ -d ~/.config ] && mv ~/.config ~/.config.old
 ln -s $(realpath ./config) ~/.config && echo "~/.config copied"
+
+#### Shadowsocks
+[ -f ~/.ShadowsocksX/user-rule.txt ] && mv ~/.ShadowsocksX/user-rule.txt ~/.ShadowsocksX/user-rule.old.txt
+ln -s $(realpath ./user-rule.txt) ~/.ShadowsocksX/user-rule.txt && echo "~/.ShadowsocksX/user-rule.txt copied" 

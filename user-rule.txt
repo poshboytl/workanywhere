@@ -43,7 +43,6 @@
 ||25.io
 ||s3.amazonaws.com
 ||safari-extensions.apple.com
-||sex.com
 ||static.jsbin.com
 ||google.com.hk
 ||designmodo.com
