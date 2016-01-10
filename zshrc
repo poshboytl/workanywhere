@@ -34,6 +34,7 @@ export GOPATH="$HOME/go-workplace"
 
 
 alias npm3="npm3 --registry="http://registry.npm.alibaba-inc.com""
+alias showip="ipconfig getifaddr en0"
 #alias b="~/Dropbox/bin/b"
 alias pc="proxychains4"
 alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
@@ -136,8 +137,8 @@ search() {
 
 
 # java
-export JAVA_HOME=$(/usr/libexec/java_home)
-#export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
+#export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
 #export JETTY_HOME=/Users/frank/bin/jetty-distribution-7.2.0.v20101020/
 
 # jenv
