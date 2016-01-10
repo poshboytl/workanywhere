@@ -13,6 +13,11 @@ brew install git
 command_exists wget || brew install wget
 brew install proxychains-ng
 
+# yd
+if ! [ -d ~/Repos/ydcv ]; then 
+    mkdir -p ~/Repos/ydcv && git clone --depth=1 --branch=master https://github.com/felixonmars/ydcv.git ~/Repos/ydcv
+fi
+
 
 # vim
 if ! [ -f ~/.vim/autoload/plug.vim ]; then
@@ -59,3 +64,5 @@ ln -s $(realpath ./config) ~/.config && echo "~/.config copied"
 #### Shadowsocks
 [ -f ~/.ShadowsocksX/user-rule.txt ] && mv ~/.ShadowsocksX/user-rule.txt ~/.ShadowsocksX/user-rule.old.txt
 ln -s $(realpath ./user-rule.txt) ~/.ShadowsocksX/user-rule.txt && echo "~/.ShadowsocksX/user-rule.txt copied" 
+
+echo 'Done!'

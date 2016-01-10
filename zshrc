@@ -13,6 +13,7 @@ fi
 unalias b
 
 
+#export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
 export PATH="${ZDOTDIR:-$HOME}/Dropbox/bin:$PATH"
 export PATH="$(brew --prefix vim)/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
@@ -21,41 +22,20 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export XDG_CONFIG_HOME=${ZDOTDIR:-$HOME}/.config
 export N_PREFIX=${ZDOTDIR:-$HOME}/bin
 export JSBIN_CONFIG=${ZDOTDIR:-$HOME}/.jsbin.config.json
-export TODO_SH="t"
-export TODO_FULL_SH="t"
 export HOMEBREW_EDITOR="vim"
 export SVN_EDITOR="vim"
 export EDITOR="vim"
 export VISUAL="vim"
 export TERM=xterm-256color
 export PROXYCHAINS_QUIET_MODE=1
-export GOPATH="$HOME/go-workplace"
-#export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
 
 
-alias npm3="npm3 --registry="http://registry.npm.alibaba-inc.com""
 alias showip="ipconfig getifaddr en0"
-#alias b="~/Dropbox/bin/b"
 alias pc="proxychains4"
-alias zipjs="python /Users/frank/Alibaba/js-css-compressor/ali-compressor.py"
 alias gcl="git clone"
 alias rm="trash"
-alias changed='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
-alias change='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
-alias changelog='git log --pretty=format:"- %s%b" --since="$(git show -s --format=%ad `git rev-list --tags --max-count=1`)"'
-#alias gminiclone="git clone --depth 1 --branch master "
-alias fixjs="fixmyjs -c ~/.jshintrc-online "
-#alias ws="open -a WebStorm"
-#alias t="~/bin/todo.txt-cli/todo.sh -d ~/bin/todo.txt-cli/todo.cfg"
-alias fuck='$(thefuck $(fc -ln -1))'
-alias htmllint="/Users/frank/bin/html5-lint/html5check.py -h -e "
-#alias jh="jshint -c ~/.jshintrc --show-non-errors"
-#alias c="clear"
-alias e="vim"
-#alias pi='pod install --no-repo-update'
-alias groovyrun="groovyConsole > /dev/null 2>&1  &"
-alias grepcontent="grep -rnw  . -e"
-alias yd="~/Dropbox/bin/ydcv/ydcv.py"
+alias gminiclone="git clone --depth 1 --branch master "
+alias yd="~/Repos/ydcv/ydcv.py"
 alias gst="git status -sb"
 alias gl="git pull"
 alias gll="git pull ; git submodule update"
