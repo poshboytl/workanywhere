@@ -51,28 +51,16 @@ alias gr="git reset"
 #alias j="z"
 alias j='z'
 alias jj='zz'
-alias me="mvn eclipse:eclipse"
-alias mci="mvn clean install"
-alias mm="mvn clean install; mvn eclipse:eclipse"
 alias lr='ls -R | grep ":$" | sed -e '\''s/:$//'\'' -e '\''s/[^-][^\/]*\//--/g'\'' -e '\''s/^/   /'\'' -e '\''s/-/|/'\'''
 alias gcob="git checkout -b"
 alias gco="git checkout"
-alias dnstest="sudo networksetup -setdnsservers Wi-Fi 10.125.6.241; echo 10.125.6.241"
 alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110; echo 178.79.131.110"
 alias dns114="sudo networksetup -setdnsservers Wi-Fi 114.114.114.114; echo 114.114.114.114"
 alias dns8="sudo networksetup -setdnsservers Wi-Fi 8.8.8.8; echo 8.8.8.8"
-alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty; echo reset"
-alias dnspre="sudo networksetup -setdnsservers Wi-Fi 10.125.13.56; echo 10.125.13.56"
 alias vpnopen="scutil --nc start '云梯 新加坡1号 PPTP'"
 alias vpnclose="scutil --nc stop '云梯 新加坡1号 PPTP'"
-alias loggoagent="tail /var/log/goagent.log -f"
-alias emacsapp="open -a emacs"
-alias neversleep="pmset noidle"
-alias thevim="$(brew --prefix vim)/bin/vim"
 alias vi="vim"
 alias i="vim"
-alias s="search"
-alias updatesk="cd ~/Alibaba/sk; svn up .; mci; me; "
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
 
 [ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
@@ -109,16 +97,9 @@ groot() {
     cd "$(git rev-parse --show-toplevel)"
 }
 
-search() {
-    str="*"$1"*";
-    find . -type d -iname $str;
-}
 
 
 
-# java
-#export JAVA_HOME=$(/usr/libexec/java_home)
-export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
 
 # jenv
 #export PATH="$HOME/.jenv/bin:$PATH"
