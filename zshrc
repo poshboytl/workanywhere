@@ -1,7 +1,6 @@
 #http_proxy=socks5://127.0.0.1:1080
 #https_proxy=socks5://127.0.0.1:1080
 Iskip_global_compinit=1
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/Repos/z/z.sh ] && source  ~/Repos/z/z.sh
 export NVM_DIR="/Users/frank/.nvm"
