@@ -139,7 +139,6 @@ search() {
 # java
 #export JAVA_HOME=$(/usr/libexec/java_home)
 export JAVA_HOME="`/usr/libexec/java_home -v '1.7*'`"
-#export JETTY_HOME=/Users/frank/bin/jetty-distribution-7.2.0.v20101020/
 
 # jenv
 #export PATH="$HOME/.jenv/bin:$PATH"
