@@ -33,12 +33,6 @@ if ! [ -d ~/Repos/z ]; then
 mkdir -p ~/Repos/z && git clone --depth=1 --branch=master https://github.com/rupa/z.git ~/Repos/z
 fi
 
-###
-
-if ! [ -d ~/Repos/zsh-git-prompt ]; then
-    mkdir -p ~/Repos/zsh-git-prompt && git clone --depth=1 --branch=master https://github.com/olivierverdier/zsh-git-prompt.git ~/Repos/zsh-git-prompt
-fi
-
 #### fzf
 if ! (command_exists fzf); then 
     brew install ag
