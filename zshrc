@@ -61,6 +61,9 @@ alias vpnclose="scutil --nc stop '云梯 新加坡1号 PPTP'"
 alias vi="vim"
 alias i="vim"
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
+alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
+alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110"
+
 
 [ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
 #PROMPT='%B%m%~%b$(git_super_status) %# '
