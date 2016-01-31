@@ -54,6 +54,8 @@ fi
 [ -f ~/.zlogin ] || zsh ./zpreztorc_init
 [ -f ~/.zshrc ]  && mv ~/.zshrc ~/.zshrc.old
 ln -s $(realpath ./zshrc) ~/.zshrc && echo "~/.zshrc copied"
+[ -f ~/.zpreztorc ] && mv ~/.zpreztorc  ~/.zpreztorc.old
+ln -s $(realpath ./zpreztorc) ~/.zpreztorc && echo "~/.zpreztorc copied"
 
 #### git
 [ -f ~/.gitconfig ] && mv ~/.gitconfig ~/.gitconfig.old 
