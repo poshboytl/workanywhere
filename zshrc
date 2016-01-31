@@ -65,8 +65,8 @@ alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
 alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110"
 
 
-[ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
-#PROMPT='%B%m%~%b$(git_super_status) %# '
+#[ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
+
 unalias z
 z() {
   if [[ -z "$*" ]]; then
