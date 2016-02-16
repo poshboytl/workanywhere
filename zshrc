@@ -29,7 +29,12 @@ export TERM=xterm-256color
 export PROXYCHAINS_QUIET_MODE=1
 
 
+alias cnpm="npm --registry=https://registry.npm.taobao.org \
+    --cache=$HOME/.npm/.cache/cnpm \
+    --disturl=https://npm.taobao.org/dist \
+    --userconfig=$HOME/.cnpmrc"
 alias showip="ipconfig getifaddr en0"
+alias ad="asciidoctor"
 alias pc="proxychains4"
 alias gcl="git clone"
 alias rm="trash"
