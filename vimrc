@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
 "Plug 'vim-scripts/JavaScript-Indent'
 Plug 'Yggdroot/indentLine'
+Plug 'keith/swift.vim'
+Plug 'sjl/gundo.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'dsolstad/vim-wombat256i'
 Plug 'einars/js-beautify'
@@ -11,23 +13,19 @@ Plug 'ervandew/supertab'
 Plug 'groenewege/vim-less'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
-"Plug 'jelera/vim-javascript-syntax'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kchmck/vim-coffee-script'
 Plug 'kien/ctrlp.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 Plug 'romainl/flattened'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'sjl/gundo.vim'
 Plug 'tomasr/molokai'
 Plug 'vim-scripts/gitignore'
 Plug 'vim-scripts/wombat256.vim'
 Plug 'elzr/vim-json'
-
-
 
 call plug#end()
 
@@ -35,6 +33,8 @@ call plug#end()
 filetype plugin indent on    " required 2
 syntax enable
 
+let g:gundo_preview_height = 30
+let g:gundo_right = 1
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:syntastic_json_checkers = ['jsonlint']
@@ -357,3 +357,18 @@ function! CssLint()
 endfunction
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+let vimDir = '$HOME/.vim'
+let &runtimepath.=','.vimDir
+set undolevels=1000         " How many undos
+set undoreload=20000        " number of lines to save for undo
+
+" Keep undo history across sessions by storing it in a file
+if has('persistent_undo')
+    let myUndoDir = expand(vimDir . '/undodir')
+    " Create dirs
+    call system('mkdir ' . vimDir)
+    call system('mkdir ' . myUndoDir)
+    let &undodir = myUndoDir
+    set undofile
+endif

@@ -29,6 +29,7 @@ export TERM=xterm-256color
 export PROXYCHAINS_QUIET_MODE=1
 
 
+alias m="tldr"
 alias showip="ipconfig getifaddr en0"
 alias pc="proxychains4"
 alias gcl="git clone"
