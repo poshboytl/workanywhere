@@ -30,7 +30,12 @@ export PROXYCHAINS_QUIET_MODE=1
 
 
 alias m="tldr"
+alias cnpm="npm --registry=https://registry.npm.taobao.org \
+    --cache=$HOME/.npm/.cache/cnpm \
+    --disturl=https://npm.taobao.org/dist \
+    --userconfig=$HOME/.cnpmrc"
 alias showip="ipconfig getifaddr en0"
+alias ad="asciidoctor"
 alias pc="proxychains4"
 alias gcl="git clone"
 alias rm="trash"
@@ -62,9 +67,12 @@ alias vpnclose="scutil --nc stop '云梯 新加坡1号 PPTP'"
 alias vi="vim"
 alias i="vim"
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
+alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
+alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110"
 
-[ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
-#PROMPT='%B%m%~%b$(git_super_status) %# '
+
+#[ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
+
 unalias z
 z() {
   if [[ -z "$*" ]]; then

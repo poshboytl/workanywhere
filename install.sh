@@ -33,12 +33,6 @@ if ! [ -d ~/Repos/z ]; then
 mkdir -p ~/Repos/z && git clone --depth=1 --branch=master https://github.com/rupa/z.git ~/Repos/z
 fi
 
-###
-
-if ! [ -d ~/Repos/zsh-git-prompt ]; then
-    mkdir -p ~/Repos/zsh-git-prompt && git clone --depth=1 --branch=master https://github.com/olivierverdier/zsh-git-prompt.git ~/Repos/zsh-git-prompt
-fi
-
 #### fzf
 if ! (command_exists fzf); then 
     brew install ag
@@ -54,6 +48,8 @@ fi
 [ -f ~/.zlogin ] || zsh ./zpreztorc_init
 [ -f ~/.zshrc ]  && mv ~/.zshrc ~/.zshrc.old
 ln -s $(realpath ./zshrc) ~/.zshrc && echo "~/.zshrc copied"
+[ -f ~/.zpreztorc ] && mv ~/.zpreztorc  ~/.zpreztorc.old
+ln -s $(realpath ./zpreztorc) ~/.zpreztorc && echo "~/.zpreztorc copied"
 
 #### git
 [ -f ~/.gitconfig ] && mv ~/.gitconfig ~/.gitconfig.old 
