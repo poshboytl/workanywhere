@@ -18,6 +18,11 @@ if ! [ -d ~/Repos/ydcv ]; then
     mkdir -p ~/Repos/ydcv && git clone --depth=1 --branch=master https://github.com/felixonmars/ydcv.git ~/Repos/ydcv
 fi
 
+#
+if ! [ -f ~/Repos/avoscloud_completion.sh]; then
+    curl -L https://raw.githubusercontent.com/leancloud/avoscloud-code-command/master/avoscloud_completion.sh > ~/Repos/avoscloud_completion.sh
+fi
+
 
 # vim
 if ! [ -f ~/.vim/autoload/plug.vim ]; then

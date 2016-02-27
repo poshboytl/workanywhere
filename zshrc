@@ -3,6 +3,7 @@
 Iskip_global_compinit=1
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/Repos/z/z.sh ] && source  ~/Repos/z/z.sh
+#[ -f ~/Repos/avoscloud_completion.sh ] && source  ~/Repos/avoscloud_completion.sh
 export NVM_DIR="/Users/frank/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
@@ -30,6 +31,7 @@ export PROXYCHAINS_QUIET_MODE=1
 
 
 alias m="tldr"
+alias ll="ls -lht"
 alias cnpm="npm --registry=https://registry.npm.taobao.org \
     --cache=$HOME/.npm/.cache/cnpm \
     --disturl=https://npm.taobao.org/dist \
@@ -170,6 +172,10 @@ fshow() {
 
 checkport(){
 	sudo lsof -nP -iTCP:$1
+}
+
+weather(){
+    curl -4 http://wttr.in/$1
 }
 
 iciba(){
