@@ -10,7 +10,6 @@ export NVM_DIR="/Users/frank/.nvm"
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
-unalias b
 
 
 #export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
@@ -49,6 +48,7 @@ alias gll="git pull ; git submodule update"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 alias ga="git add"
 alias gc="git commit -v"
+alias gc.="git commit -v"
 alias gd="git diff"
 alias gp="git push"
 alias gcm="git commit . -m update"
@@ -182,3 +182,5 @@ iciba(){
     open "http://iciba.com/$1"
 }
 up(){ DEEP=$1; [ -z "${DEEP}" ] && { DEEP=1; }; for i in $(seq 1 ${DEEP}); do cd ../; done; }
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

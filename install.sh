@@ -12,6 +12,7 @@ command_exists node || brew install node
 brew install git
 command_exists wget || brew install wget
 brew install proxychains-ng
+brew install neovim/neovim/neovim
 
 # yd
 if ! [ -d ~/Repos/ydcv ]; then 

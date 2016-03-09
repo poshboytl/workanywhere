@@ -4,6 +4,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
 "Plug 'vim-scripts/JavaScript-Indent'
 Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
 Plug 'keith/swift.vim'
 Plug 'sjl/gundo.vim'
 Plug 'altercation/vim-colors-solarized'
