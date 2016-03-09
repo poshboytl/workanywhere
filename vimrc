@@ -190,6 +190,18 @@ vmap <Leader>d "+d
 nmap <Leader>p "+p
 nmap <Leader>P "+P
 vmap <Leader>p "+p
+function! ClipboardYank()
+    call system('pbcopy', @@)
+endfunction
+function! ClipboardPaste()
+    let @@ = system('pbpaste')
+endfunction
+
+vnoremap <silent> y y:call ClipboardYank()<cr>
+vnoremap <silent> d d:call ClipboardYank()<cr>
+nnoremap <silent> p :call ClipboardPaste()<cr>p
+onoremap <silent> y y:call ClipboardYank()<cr>
+onoremap <silent> d d:call ClipboardYank()<cr>
 noremap ;; :%s:::g<Left><Left><Left>
 noremap ;' :%s:::cg<Left><Left><Left><Left>
 autocmd BufReadPost,FileReadPost *.jsx set syntax=javascript filetype=javascript
@@ -213,7 +225,7 @@ set background=dark
 "set completeopt=menuone
 set expandtab
 set fileformats=unix,dos,mac
-set history=1200
+set history=10000
 set hlsearch
 set ignorecase
 set incsearch
@@ -221,6 +233,7 @@ set laststatus=2
 set lbr
 set mat=2
 set mouse=
+if has('mouse') | set mouse=a | endif
 set mousemodel=extend
 set nobackup
 set switchbuf=usetab
