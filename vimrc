@@ -2,13 +2,17 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
-"Plug 'vim-scripts/JavaScript-Indent'
 Plug 'Yggdroot/indentLine'
+Plug 'wting/gitsessions.vim'
+Plug 'reedes/vim-colors-pencil'
+"Plug 'honza/vim-snippets'
 Plug 'airblade/vim-gitgutter'
+Plug 'gcmt/taboo.vim'
+"Plug 'SirVer/ultisnips'
 Plug 'keith/swift.vim'
+Plug 'mikewest/vimroom'
 Plug 'sjl/gundo.vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'dsolstad/vim-wombat256i'
 Plug 'einars/js-beautify'
 Plug 'ervandew/supertab'
 Plug 'groenewege/vim-less'
@@ -19,20 +23,27 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'kien/ctrlp.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
-"Plug 'plasticboy/vim-markdown'
 Plug 'romainl/flattened'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tomasr/molokai'
 Plug 'vim-scripts/gitignore'
-Plug 'vim-scripts/wombat256.vim'
 Plug 'elzr/vim-json'
+"colors
+Plug 'vim-scripts/pyte'
+Plug 'vim-scripts/summerfruit256.vim'
+Plug 'dsolstad/vim-wombat256i'
+Plug 'vim-scripts/wombat256.vim'
 
 call plug#end()
 
 
-filetype plugin indent on    " required 2
+filetype plugin indent on
 syntax enable
+
+let g:python_host_prog = '/usr/local/bin/python2.7'
+let g:python2_host_prog = '/usr/local/bin/python2.7'
+let g:python3_host_prog = '/usr/local/bin/python3.5'
 
 let g:gundo_preview_height = 30
 let g:gundo_right = 1
@@ -88,11 +99,14 @@ set autochdir
 let NERDTreeChDirMode=2
 nnoremap <leader>e :<C-u>NERDTree .<CR>\|:wincmd p<CR>
 
+" taboo
+let g:taboo_tab_format=" %N %f%m "
+
 " snips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
 let g:auto_save = 0  " enable AutoSave on Vim startup
 
@@ -119,9 +133,12 @@ else
 endif
 
 
+autocmd Filetype ruby,coffee,sass,scss,jade,erb setlocal ts=2 sw=2 expandtab
 " emmet
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+autocmd FileType html,css imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
 
 " markdown
 let g:vim_markdown_folding_disabled=1
@@ -165,8 +182,8 @@ autocmd FileType javascript noremap <buffer>  <C-l> mz<C-U>:call JsBeautify()<cr
 autocmd FileType javascript noremap <buffer>  <C-h> :JSHint()<cr>
 
 " omni
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 
 
 
@@ -197,11 +214,11 @@ function! ClipboardPaste()
     let @@ = system('pbpaste')
 endfunction
 
-vnoremap <silent> y y:call ClipboardYank()<cr>
-vnoremap <silent> d d:call ClipboardYank()<cr>
-nnoremap <silent> p :call ClipboardPaste()<cr>p
-onoremap <silent> y y:call ClipboardYank()<cr>
-onoremap <silent> d d:call ClipboardYank()<cr>
+"vnoremap <silent> y y:call ClipboardYank()<cr>
+"vnoremap <silent> d d:call ClipboardYank()<cr>
+"nnoremap <silent> p :call ClipboardPaste()<cr>p
+"onoremap <silent> y y:call ClipboardYank()<cr>
+"onoremap <silent> d d:call ClipboardYank()<cr>
 noremap ;; :%s:::g<Left><Left><Left>
 noremap ;' :%s:::cg<Left><Left><Left><Left>
 autocmd BufReadPost,FileReadPost *.jsx set syntax=javascript filetype=javascript
@@ -221,7 +238,7 @@ set autoindent
 set nosmartindent
 set nocindent
 set backspace=eol,start,indent
-set background=dark
+set background=light
 "set completeopt=menuone
 set expandtab
 set fileformats=unix,dos,mac
@@ -256,22 +273,26 @@ set tabstop=4
 set undodir=/Users/frank/.vim/undodir/
 set undofile
 set viminfo^=% " Remember info about open buffers on close
+
+" wild
 set whichwrap+=<,>,h,l
 set wildignore=*.o,*~,*.pyc
 set wildmenu
+set wildchar=<Tab> wildmenu wildmode=full
+set wildcharm=<C-Z>
+nnoremap <M-`> :b <C-Z>
+
 
 if has("gui_running")
     set guifont=Sauce\ Code\ Powerline:h13
 endif
 
 " colorscheme
-colorscheme molokai
-"colorscheme flattened_light
+colorscheme molokai 
 let g:molokai_original = 1
 set colorcolumn=120
-"let g:rehash256 = 1
-"hi MatchParen term=reverse cterm=bold ctermfg=red ctermbg=234 gui=bold guifg=#000000 guibg=#FD971F
 hi MatchParen term=reverse cterm=bold ctermfg=red ctermbg=none gui=bold guifg=#000000 guibg=#FD971F
+map <F11> :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 
 
 " status line
@@ -306,40 +327,6 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 " Set a nicer foldtext function
-"function! FrankFoldText()
-    "let line = getline(v:foldstart)
-    "if match( line, '^[ \t]*\(\/\*\|\/\/\)[*/\\]*[ \t]*$' ) == 0
-        "let initial = substitute( line, '^\([ \t]\)*\(\/\*\|\/\/\)\(.*\)', '\1\2', '' )
-        "let linenum = v:foldstart + 1
-        "while linenum < v:foldend
-            "let line = getline( linenum )
-            "let comment_content = substitute( line, '^\([ \t\/\*]*\)\(.*\)$', '\2', 'g' )
-            "if comment_content != ''
-                "break
-            "endif
-            "let linenum = linenum + 1
-        "endwhile
-        "let sub = initial . ' ' . comment_content
-    "else
-        "let sub = line
-        "let startbrace = substitute( line, '^.*{[ \t]*$', '{', 'g')
-        "if startbrace == '{'
-            "let line = getline(v:foldend)
-            "let endbrace = substitute( line, '^[ \t]*}\(.*\)$', '}', 'g')
-            "if endbrace == '}'
-                "let sub = sub.substitute( line, '^[ \t]*}\(.*\)$', '...}\1', 'g')
-            "endif
-        "endif
-    "endif
-    "let n = v:foldend - v:foldstart + 1
-    "let info = " " . n . " lines"
-    "let sub = sub . "                                                                                                                  "
-    "let num_w = getwinvar( 0, '&number' ) * getwinvar( 0, '&numberwidth' )
-    "let fold_w = getwinvar( 0, '&foldcolumn' )
-    "let sub = strpart( sub, 0, winwidth(0) - strlen( info ) - num_w - fold_w - 1 )
-    "return sub . info
-"endfunction
-"set foldtext=FrankFoldText()
 
 function! MyFilename()
     let t = ('' != expand('%:t'))

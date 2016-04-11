@@ -13,6 +13,7 @@ fi
 
 
 #export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
+export PATH="${ZDOTDIR:-$HOME}/local/bin:$PATH"
 export PATH="${ZDOTDIR:-$HOME}/Dropbox/bin:$PATH"
 export PATH="$(brew --prefix vim)/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
@@ -27,8 +28,17 @@ export EDITOR="vim"
 export VISUAL="vim"
 export TERM=xterm-256color
 export PROXYCHAINS_QUIET_MODE=1
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+export ANDROID_SDK_ROOT="/Users/frank/Library/Android/sdk"
 
 
+alias resetwebstorm="rm ~/Library/Preferences/WebStorm2016.1/eval"
+alias adb="/Users/frank/Library/Android/sdk/platform-tools/adb"
+alias download="aria2c"
+alias emacs="/usr/local/Cellar/emacs/24.5//Emacs.app/Contents/MacOS/Emacs -nw"
+alias e="emacs"                                                        
+alias fapm="/Applications/Atom.app/Contents/Resources/app/apm/bin/apm"
 alias m="tldr"
 alias ll="ls -lht"
 alias cnpm="npm --registry=https://registry.npm.taobao.org \
@@ -39,6 +49,7 @@ alias showip="ipconfig getifaddr en0"
 alias ad="asciidoctor"
 alias pc="proxychains4"
 alias gcl="git clone"
+alias therm="rm"
 alias rm="trash"
 alias gminiclone="git clone --depth 1 --branch master "
 alias yd="~/Repos/ydcv/ydcv.py"
@@ -71,6 +82,7 @@ alias i="nvim"
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
 alias dnsreset="sudo networksetup -setdnsservers Wi-Fi Empty"
 alias dnsv2="sudo networksetup -setdnsservers Wi-Fi 178.79.131.110"
+alias h="nvim /etc/hosts"
 
 
 #[ -f ~/Repos/zsh-git-prompt/zshrc.sh ] && source ~/Repos/zsh-git-prompt/zshrc.sh
@@ -125,6 +137,14 @@ f() {
   file=$( fzf --query="$q" --select-1 --exit-0 -x)
   [ -n "$file" ] && vim "$file" ; echo "fzf: bye"
 }
+s() {
+  local file
+  q=$1
+
+  #file=$(ag -l -g ""| fzf --query="$q" --select-1 --exit-0 -x)
+  file=$( fzf --query="$q" --select-1 --exit-0 -x)
+  [ -n "$file" ] && echo "$file" ;
+}
 
 
 #fd() {
@@ -146,7 +166,9 @@ fs(){
         q="."
     fi
     #grep --line-buffered --color=never -rh "$q" * | fzf 
-    file=$(ag "$q" | fzf)
+    result=$(ag "$q" | fzf)
+    IFS=':' read file line other <<< "$result"
+    [ -n "$file" ] && nvim "$file" +"$line";
 }
 # fshow - git commit browser (enter for show, ctrl-d for diff, ` toggles sort)
 fshow() {
@@ -184,3 +206,4 @@ iciba(){
 up(){ DEEP=$1; [ -z "${DEEP}" ] && { DEEP=1; }; for i in $(seq 1 ${DEEP}); do cd ../; done; }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi

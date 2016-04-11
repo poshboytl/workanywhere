@@ -27,3 +27,5 @@
     cl =  !sh -c 'git log $1...$2  --pretty=format:\"%s [查看 commit](http://gitlab.com/$3/$4/commit/%H) \"' -
     checkpoint = !git stash; git stash apply
     co = !sh -c 'git stash; git stash apply; git checkout "$*"'
+[user]
+	useconfigonly = true
