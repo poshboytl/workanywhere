@@ -1,6 +1,11 @@
-set nocompatible
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
 call plug#begin('~/.vim/plugged')
+Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/neoyank.vim'
+Plug 'Shougo/neomru.vim'
 Plug 'Shutnik/jshint2.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'wting/gitsessions.vim'
@@ -12,24 +17,27 @@ Plug 'gcmt/taboo.vim'
 Plug 'keith/swift.vim'
 Plug 'mikewest/vimroom'
 Plug 'sjl/gundo.vim'
+Plug 'Shougo/vimproc.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'einars/js-beautify'
-Plug 'ervandew/supertab'
+"Plug 'ervandew/supertab'
 Plug 'groenewege/vim-less'
+Plug 'Shougo/unite.vim'
+Plug 'ujihisa/unite-colorscheme'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kchmck/vim-coffee-script'
-Plug 'kien/ctrlp.vim'
+"Plug 'kien/ctrlp.vim'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'mattn/emmet-vim'
 Plug 'romainl/flattened'
 Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
-Plug 'tomasr/molokai'
 Plug 'vim-scripts/gitignore'
 Plug 'elzr/vim-json'
 "colors
+Plug 'tomasr/molokai'
 Plug 'vim-scripts/pyte'
 Plug 'vim-scripts/summerfruit256.vim'
 Plug 'dsolstad/vim-wombat256i'
@@ -56,6 +64,8 @@ set guioptions-=r
 let mapleader = "\<space>"
 let g:mapleader = "\<space>"
 let g:EasyGrepWindowPosition = "botright"
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 set noshowmode
 set iskeyword=@,$,48-57,192-255,_
 let g:lightline = {
@@ -111,26 +121,25 @@ let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 let g:auto_save = 0  " enable AutoSave on Vim startup
 
 " ctrlp
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]((\.(git|hg|svn))|(bower_components|node_modules|target))$',
-            \ 'file': '\v\.(exe|so|dll)$',
-            \ 'link': 'some_bad_symbolic_links',
-            \ }
-"let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-nnoremap <leader>b :CtrlPBuffer<CR>
-nnoremap <c-b> :CtrlPBuffer<CR>
-inoremap <c-b> <ESC>:CtrlPBuffer<CR>
-let g:ctrlp_use_caching = 0
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
+"let g:ctrlp_custom_ignore = {
+            "\ 'dir':  '\v[\/]((\.(git|hg|svn))|(bower_components|node_modules|target))$',
+            "\ 'file': '\v\.(exe|so|dll)$',
+            "\ 'link': 'some_bad_symbolic_links',
+            "\ }
+"nnoremap <leader>b :CtrlPBuffer<CR>
+"nnoremap <c-b> :CtrlPBuffer<CR>
+"inoremap <c-b> <ESC>:CtrlPBuffer<CR>
+"let g:ctrlp_use_caching = 0
+"if executable('ag')
+    "set grepprg=ag\ --nogroup\ --nocolor
 
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-else
-  let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ }
-endif
+    "let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+"else
+  "let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  "let g:ctrlp_prompt_mappings = {
+    "\ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    "\ }
+"endif
 
 
 autocmd Filetype ruby,coffee,sass,scss,jade,erb setlocal ts=2 sw=2 expandtab
@@ -373,3 +382,53 @@ if has('persistent_undo')
     let &undodir = myUndoDir
     set undofile
 endif
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
+
+"Unite
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+"call unite#custom#source('file_rec/async','sorters','sorter_rank', )
+" replacing unite with ctrl-p
+let g:unite_data_directory='~/.vim/.cache/unite'
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable=1
+let g:unite_prompt='> '
+let g:unite_split_rule = 'botright'
+if executable('ag')
+    let g:unite_source_grep_command = 'ag'
+	let g:unite_source_grep_default_opts =
+	\ '-i --vimgrep --hidden --ignore ' .
+	\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+	let g:unite_source_grep_recursive_opt = ''
+
+    let g:unite_source_find_command = 'ag'
+    let g:unite_source_find_default_opts = '--nocolor --nogroup --follow'
+    let g:unite_source_rec_async_command =
+            \ ['ag', '--follow', '--nocolor', '--nogroup',
+    \  '--hidden', '-g', '']
+    let g:unite_source_file_async_command = 'ag --nocolor --nogroup -g -l ""'
+    let g:unite_source_rec_git_command = ['ag', '--nocolor', '--nogroup', '-g', '']
+    let g:unite_source_grep_recursive_opt=''
+endif
+nnoremap <silent> <c-p> :Unite -no-split file_rec/async file_mru:!<cr>
+nnoremap <silent> <c-b> :Unite  buffer<cr>
+nnoremap <silent> <c-g> :Unite  grep:.<cr>
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  " Play nice with supertab
+  let b:SuperTabDisabled=1
+  " Enable navigation with control-j and control-k in insert mode
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  nmap <buffer> <ESC>   <Plug>(unite_exit)
+endfunction

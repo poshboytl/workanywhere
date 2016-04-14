@@ -60,6 +60,11 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 alias ga="git add"
 alias gc="git commit -v"
 alias gc.="git commit -v"
+alias gch="git commit -v -t ~/.config/git/templates/commit-messages/change"
+alias gad="git commit -v -t ~/.config/git/templates/commit-messages/add"
+alias gfi="git commit -v -t ~/.config/git/templates/commit-messages/fix"
+alias gre="git commit -v -t ~/.config/git/templates/commit-messages/remove"
+alias gup="git commit -v -t ~/.config/git/templates/commit-messages/update"
 alias gd="git diff"
 alias gp="git push"
 alias gcm="git commit . -m update"
@@ -136,6 +141,14 @@ f() {
   #file=$(ag -l -g ""| fzf --query="$q" --select-1 --exit-0 -x)
   file=$( fzf --query="$q" --select-1 --exit-0 -x)
   [ -n "$file" ] && vim "$file" ; echo "fzf: bye"
+}
+ef(){
+  local file
+  q=$1
+
+  #file=$(ag -l -g ""| fzf --query="$q" --select-1 --exit-0 -x)
+  file=$( fzf --query="$q" --select-1 --exit-0 -x)
+  [ -n "$file" ] && emacs -nw "$file" ; echo "fzf: bye"
 }
 s() {
   local file
