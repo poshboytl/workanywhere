@@ -25,18 +25,18 @@ values."
      ;; ----------------------------------------------------------------
      (auto-completion :variables auto-complete-enable-snippets-in-popup t)
      better-defaults
-     emacs-lisp
-     git
+     ;;emacs-lisp
+     ;;git
      markdown
+     ;;vim-powerline
      org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     spell-checking
+     ;;spell-checking
      syntax-checking
-     version-control
+     ;;version-control
      (han :variables
-          han-enable-youdao-dict t
           han-org-line-spacing 0.2)
      )
    ;; List of additional packages that will be installed without being
@@ -44,11 +44,14 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      web-mode
-                                      js2-mode
-                                      )
+    ;;org-bullets
+    org-pomodoro
+    )
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+        evil-jumper
+        org-bullets
+   )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -101,7 +104,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(afternoon tango-dark spacemacs-dark)
+   dotspacemacs-themes '(afternoon  tango-dark spacemacs-dark )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -110,7 +113,7 @@ values."
                                :size 13
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.2)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -251,7 +254,9 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place you code here."
-  (spacemacs//set-monospaced-font "Source Code Pro" "BabelStone Han" 14 16)
+  (setq
+    ;;org-bullets-bullet-list '("🍅" "↘" "↘" "↘")
+    )
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -261,6 +266,9 @@ you should place you code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("bffa9739ce0752a37d9b1eee78fc00ba159748f50dc328af4be661484848e476" default)))
  '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -271,5 +279,6 @@ you should place you code here."
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
  '(highlight ((t (:background "color-232" :foreground "color-255"))))
  '(hl-line ((t nil)))
- '(mode-line ((t (:background "color-16" :foreground "green" :box (:line-width -1 :style released-button))))))
+ '(mode-line ((t (:background "color-16" :foreground "green" :box (:line-width -1 :style released-button)))))
+ )
 

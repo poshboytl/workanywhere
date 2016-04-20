@@ -6,23 +6,27 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/unite.vim'
 Plug 'Shutnik/jshint2.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'majutsushi/tagbar'
+Plug 'tpope/vim-repeat'
+Plug 'tsukkee/unite-tag'
 Plug 'wting/gitsessions.vim'
 Plug 'reedes/vim-colors-pencil'
-"Plug 'honza/vim-snippets'
-Plug 'airblade/vim-gitgutter'
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
 Plug 'gcmt/taboo.vim'
-"Plug 'SirVer/ultisnips'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'groenewege/vim-less'
 Plug 'keith/swift.vim'
 Plug 'mikewest/vimroom'
 Plug 'sjl/gundo.vim'
-Plug 'Shougo/vimproc.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'einars/js-beautify'
 "Plug 'ervandew/supertab'
 Plug 'groenewege/vim-less'
-Plug 'Shougo/unite.vim'
 Plug 'ujihisa/unite-colorscheme'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
@@ -49,7 +53,11 @@ call plug#end()
 filetype plugin indent on
 syntax enable
 
+" gitgutter
+let g:gitgutter_diff_args = '--ignore-all-space --ignore-blank-lines'
+
 let g:python_host_prog = '/usr/local/bin/python2.7'
+let g:session_autosave = 'no'
 let g:python2_host_prog = '/usr/local/bin/python2.7'
 let g:python3_host_prog = '/usr/local/bin/python3.5'
 
@@ -66,7 +74,9 @@ let g:mapleader = "\<space>"
 let g:EasyGrepWindowPosition = "botright"
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
+" 
 set noshowmode
+set autoread
 set iskeyword=@,$,48-57,192-255,_
 let g:lightline = {
             \ 'colorscheme': 'landscape',
@@ -107,10 +117,23 @@ let g:nerdtree_tabs_focus_on_files = 1
 let g:nerdtree_tabs_autofind = 1
 set autochdir
 let NERDTreeChDirMode=2
+let NERDTreeQuitOnOpen=1
 nnoremap <leader>e :<C-u>NERDTree .<CR>\|:wincmd p<CR>
 
+" session
+map <leader>ss :SaveSession 
+map <leader>sl :OpenSession 
+map <leader>sr :RestartVim 
+inoremap <silent><expr> <s-tab>
+    \ pumvisible() ? "\<c-p>" :
+    \ "\<s-tab>"
+inoremap <silent><expr> <tab>
+    \ pumvisible() ? "\<c-n>" :
+    \ "\<tab>"
+inoremap <silent><expr> <s-tab> "\<c-n>"
+
 " taboo
-let g:taboo_tab_format=" %N %f%m "
+let g:taboo_tab_format=" %N %f%m |"
 
 " snips
 let g:UltiSnipsEditSplit="vertical"
@@ -145,8 +168,8 @@ let g:auto_save = 0  " enable AutoSave on Vim startup
 autocmd Filetype ruby,coffee,sass,scss,jade,erb setlocal ts=2 sw=2 expandtab
 " emmet
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
-autocmd FileType html,css imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+autocmd FileType html,css,less,sass,scss EmmetInstall
+autocmd FileType html,css,less,sass,scss imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 
 " markdown
@@ -159,6 +182,8 @@ let g:vim_markdown_folding_disabled=1
 
 autocmd FileType ruby nnoremap <F5> :!ruby %<cr>
 autocmd FileType ruby inoremap <F5> <ESC>:!ruby %<cr>
+autocmd FocusLost * silent! wa
+let g:session_autoload = 'no'
 
 " tab
 map <leader>1 :tabnext 1<cr>
@@ -419,9 +444,9 @@ if executable('ag')
     let g:unite_source_rec_git_command = ['ag', '--nocolor', '--nogroup', '-g', '']
     let g:unite_source_grep_recursive_opt=''
 endif
-nnoremap <silent> <c-p> :Unite -no-split file_rec/async file_mru:!<cr>
+nnoremap <silent> <c-p> :UniteWithProjectDir -no-split file_rec/async:!<cr>
 nnoremap <silent> <c-b> :Unite  buffer<cr>
-nnoremap <silent> <c-g> :Unite  grep:.<cr>
+nnoremap <silent> <c-g> :UniteWithProjectDir  grep:.<cr>
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
@@ -432,3 +457,8 @@ function! s:unite_settings()
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
   nmap <buffer> <ESC>   <Plug>(unite_exit)
 endfunction
+
+augroup VimCSS3Syntax
+  autocmd!
+  autocmd FileType css setlocal iskeyword+=-
+augroup END

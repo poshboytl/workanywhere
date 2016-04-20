@@ -11,6 +11,7 @@ command_exists python3 || brew install python3
 pip3 install neovim
 command_exists trash || brew install trash
 command_exists node || brew install node
+npm install -g git+https://github.com/ramitos/jsctags.git
 brew install git
 command_exists wget || brew install wget
 brew install proxychains-ng
