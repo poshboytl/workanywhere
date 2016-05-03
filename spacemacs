@@ -34,7 +34,7 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      ;;spell-checking
-     syntax-checking
+     ;;syntax-checking
      ;;version-control
      (han :variables
           han-org-line-spacing 0.2)
@@ -72,19 +72,19 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 5
+   dotspacemacs-elpa-timeout 3
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. (default t)
-   dotspacemacs-check-for-update t
+   dotspacemacs-check-for-update nil
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
    ;; unchanged. (default 'vim)
    dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
-   dotspacemacs-verbose-loading nil
+   dotspacemacs-verbose-loading t
    ;; Specify the startup banner. Default value is `official', it displays
    ;; the official spacemacs logo. An integer value is the index of text
    ;; banner, `random' chooses a random text banner in `core/banners'
@@ -152,7 +152,7 @@ values."
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-auto-save-file-location 'nil
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non nil then `ido' replaces `helm' for some commands. For now only

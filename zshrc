@@ -1,6 +1,6 @@
 #http_proxy=socks5://127.0.0.1:1080
 #https_proxy=socks5://127.0.0.1:1080
-Iskip_global_compinit=1
+skip_global_compinit=1
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/Repos/z/z.sh ] && source  ~/Repos/z/z.sh
 #[ -f ~/Repos/avoscloud_completion.sh ] && source  ~/Repos/avoscloud_completion.sh
@@ -33,7 +33,9 @@ export CPPFLAGS="-I/usr/local/opt/openssl/include"
 export ANDROID_SDK_ROOT="/Users/frank/Library/Android/sdk"
 
 
-alias gtd="emacs -nw  ~/Dropbox/all.org"
+alias rs="bundle exec rails server"
+alias open3000="open http://localhost:3000/"
+alias gtd="/usr/local/Cellar/emacs/24.5/Emacs.app/Contents/MacOS/Emacs -nw  ~/Dropbox/all.org"
 alias resetwebstorm="rm ~/Library/Preferences/WebStorm2016.1/eval"
 alias adb="/Users/frank/Library/Android/sdk/platform-tools/adb"
 alias download="aria2c"
@@ -56,6 +58,8 @@ alias gminiclone="git clone --depth 1 --branch master "
 alias yd="~/Repos/ydcv/ydcv.py"
 alias gst="git status -sb"
 alias gl="git pull"
+alias glr="git pull --rebase"
+alias glb="git pull --rebase"
 alias gll="git pull ; git submodule update"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
 alias ga="git add"
@@ -71,7 +75,7 @@ alias gp="git push"
 alias gcm="git commit . -m update"
 alias gcmp="git commit . -m update && git push"
 alias gpp="git pull && git push"
-alias gr="git reset"
+alias gr="git rebase"
 #alias j="z"
 alias j='z'
 alias jj='zz'
@@ -83,6 +87,8 @@ alias dns114="sudo networksetup -setdnsservers Wi-Fi 114.114.114.114; echo 114.1
 alias dns8="sudo networksetup -setdnsservers Wi-Fi 8.8.8.8; echo 8.8.8.8"
 alias vpnopen="scutil --nc start '云梯 新加坡1号 PPTP'"
 alias vpnclose="scutil --nc stop '云梯 新加坡1号 PPTP'"
+alias vim="nvim"
+alias tmux='tmux -2'
 alias vi="nvim"
 alias i="nvim"
 alias flushdns="sudo killall -HUP mDNSResponder &&  echo 'DNS cache flushed.'"
@@ -149,7 +155,7 @@ ef(){
 
   #file=$(ag -l -g ""| fzf --query="$q" --select-1 --exit-0 -x)
   file=$( fzf --query="$q" --select-1 --exit-0 -x)
-  [ -n "$file" ] && emacs -nw "$file" ; echo "fzf: bye"
+  [ -n "$file" ] && emacs "$file" ; echo "fzf: bye"
 }
 s() {
   local file
@@ -221,3 +227,26 @@ up(){ DEEP=$1; [ -z "${DEEP}" ] && { DEEP=1; }; for i in $(seq 1 ${DEEP}); do cd
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+
+#https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git-remote-branch/git-remote-branch.plugin.zsh
+
+_git_remote_branch() {
+  ref=$(git symbolic-ref HEAD 2> /dev/null)
+  if [[ -n $ref ]]; then
+    if (( CURRENT == 2 )); then
+      # first arg: operation
+      compadd create publish rename delete track
+    elif (( CURRENT == 3 )); then
+      # second arg: remote branch name
+      remotes=`git remote | tr '\n' '|' | sed "s/\|$//g"`
+      compadd `git branch -r | grep -v HEAD | sed "s/$remotes\///" | sed "s/ //g"`
+    elif (( CURRENT == 4 )); then
+      # third arg: remote name
+      compadd `git remote`
+    fi
+  else;
+    _files
+  fi
+}
+compdef _git_remote_branch grb

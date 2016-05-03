@@ -1,10 +1,4 @@
 {
 	"optOut": false,
-	"lastUpdateCheck": 1461065988147,
-	"update": {
-		"latest": "1.7.9",
-		"current": "1.7.7",
-		"type": "patch",
-		"name": "bower"
-	}
+	"lastUpdateCheck": 1461598939894
 }

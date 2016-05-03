@@ -10,6 +10,7 @@ Plug 'Shougo/vimproc.vim'
 Plug 'Shougo/unite.vim'
 Plug 'Shutnik/jshint2.vim'
 Plug 'Yggdroot/indentLine'
+Plug 'vim-ruby/vim-ruby'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-repeat'
 Plug 'tsukkee/unite-tag'
@@ -30,7 +31,7 @@ Plug 'groenewege/vim-less'
 Plug 'ujihisa/unite-colorscheme'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
-Plug 'jistr/vim-nerdtree-tabs'
+"Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kchmck/vim-coffee-script'
 "Plug 'kien/ctrlp.vim'
 Plug 'maksimr/vim-jsbeautify'
@@ -52,6 +53,11 @@ call plug#end()
 
 filetype plugin indent on
 syntax enable
+
+" jshint2
+let jshint2_save = 1
+let jshint2_max_height = 12
+
 
 " gitgutter
 let g:gitgutter_diff_args = '--ignore-all-space --ignore-blank-lines'
@@ -111,14 +117,15 @@ let g:lightline = {
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 
 " nerdtree
-let g:NERDTreeWinPos = "right"
-let g:nerdtree_tabs_open_on_console_startup = 0
-let g:nerdtree_tabs_focus_on_files = 1
-let g:nerdtree_tabs_autofind = 1
+let g:NERDTreeWinPos = "bottom"
+"let g:nerdtree_tabs_open_on_console_startup = 0
+"let g:nerdtree_tabs_focus_on_files = 1
+"let g:nerdtree_tabs_autofind = 1
 set autochdir
 let NERDTreeChDirMode=2
 let NERDTreeQuitOnOpen=1
-nnoremap <leader>e :<C-u>NERDTree .<CR>\|:wincmd p<CR>
+nnoremap <leader>f :<C-u>NERDTree<CR>
+"nnoremap <leader>e :<C-u>NERDTree .<CR>\|:wincmd p<CR>
 
 " session
 map <leader>ss :SaveSession 
@@ -168,8 +175,8 @@ let g:auto_save = 0  " enable AutoSave on Vim startup
 autocmd Filetype ruby,coffee,sass,scss,jade,erb setlocal ts=2 sw=2 expandtab
 " emmet
 let g:user_emmet_install_global = 0
-autocmd FileType html,css,less,sass,scss EmmetInstall
-autocmd FileType html,css,less,sass,scss imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+autocmd FileType html,erb,css,less,sass,scss EmmetInstall
+autocmd FileType html,erb,css,less,sass,scss imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 
 
 " markdown
@@ -263,7 +270,6 @@ map k gk
 nnoremap Y "+y
 nnoremap <silent><S-b> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%^','bW')<CR>
 nnoremap <silent><S-w> :<C-u>call search('\<\<Bar>\U\@<=\u\<Bar>\u\ze\%(\U\&\>\@!\)\<Bar>\%$','W')<CR>
-nnoremap <leader>f :<C-u>e %:p:h<CR>
 noremap <C-S> :w<CR>
 vnoremap <C-T> :tabnew %:p:h<CR>
 noremap <F11> <C-u>:wincmd o<CR>
@@ -275,6 +281,7 @@ set backspace=eol,start,indent
 set background=light
 "set completeopt=menuone
 set expandtab
+set listchars=tab:>·
 set fileformats=unix,dos,mac
 set history=10000
 set hlsearch
@@ -457,8 +464,20 @@ function! s:unite_settings()
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
   nmap <buffer> <ESC>   <Plug>(unite_exit)
 endfunction
+autocmd FileType nerdtree call s:nerdtree_settings()
+function! s:nerdtree_settings()
+  " Play nice with supertab
+  " Enable navigation with control-j and control-k in insert mode
+  nmap <buffer> <ESC>   :NERDTreeClose<CR>
+  nmap <buffer> <c-c>   :NERDTreeClose<CR>
+  nmap <buffer> `   :NERDTreeClose<CR>
+endfunction
 
 augroup VimCSS3Syntax
   autocmd!
   autocmd FileType css setlocal iskeyword+=-
 augroup END
+" tmux
+if exists('$TMUX')
+  set term=screen-256color
+endif
