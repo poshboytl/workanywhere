@@ -7,15 +7,24 @@ command_exists brew || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/H
 brew install coreutils
 brew install vim
 command_exists zsh || brew install zsh
+command_exists python3 || brew install python3
+pip3 install neovim
 command_exists trash || brew install trash
 command_exists node || brew install node
+npm install -g git+https://github.com/ramitos/jsctags.git
 brew install git
 command_exists wget || brew install wget
 brew install proxychains-ng
+brew install neovim/neovim/neovim
 
 # yd
 if ! [ -d ~/Repos/ydcv ]; then 
     mkdir -p ~/Repos/ydcv && git clone --depth=1 --branch=master https://github.com/felixonmars/ydcv.git ~/Repos/ydcv
+fi
+
+#
+if ! [ -f ~/Repos/avoscloud_completion.sh]; then
+    curl -L https://raw.githubusercontent.com/leancloud/avoscloud-code-command/master/avoscloud_completion.sh > ~/Repos/avoscloud_completion.sh
 fi
 
 
