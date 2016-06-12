@@ -1,5 +1,5 @@
-#http_proxy=socks5://127.0.0.1:1080
-#https_proxy=socks5://127.0.0.1:1080
+http_proxy=socks5://127.0.0.1:1080
+https_proxy=socks5://127.0.0.1:1080
 Iskip_global_compinit=1
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 [ -f ~/Repos/z/z.sh ] && source  ~/Repos/z/z.sh
@@ -13,6 +13,8 @@ unalias b
 
 
 #export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
+export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 export PATH="${ZDOTDIR:-$HOME}/Dropbox/bin:$PATH"
 export PATH="$(brew --prefix vim)/bin:$PATH"
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"

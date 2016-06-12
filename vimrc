@@ -2,7 +2,6 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 Plug 'Shutnik/jshint2.vim'
-"Plug 'vim-scripts/JavaScript-Indent'
 Plug 'Yggdroot/indentLine'
 Plug 'keith/swift.vim'
 Plug 'sjl/gundo.vim'
@@ -13,6 +12,7 @@ Plug 'ervandew/supertab'
 Plug 'groenewege/vim-less'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
+Plug 'tokuhirom/mydiary.vim'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'kchmck/vim-coffee-script'
 Plug 'kien/ctrlp.vim'
@@ -77,6 +77,11 @@ let g:lightline = {
 
 
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+
+" shortcut key for writing diary
+nnoremap <leader>o <esc> :call mydiary#new()<cr>
+" diary file path
+let g:mydiary_path=$HOME . "/Dropbox/diary/"
 
 " nerdtree
 let g:NERDTreeWinPos = "right"
