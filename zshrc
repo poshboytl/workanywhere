@@ -13,8 +13,8 @@ fi
 
 
 #export HOMEBREW_BOTTLE_DOMAIN=http://7xkcej.dl1.z0.glb.clouddn.com
-export RBENV_ROOT=/usr/local/var/rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+#export RBENV_ROOT=/usr/local/var/rbenv
+#if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 export PATH="${ZDOTDIR:-$HOME}/local/bin:$PATH"
 export PATH="${ZDOTDIR:-$HOME}/Dropbox/bin:$PATH"
 export PATH="$(brew --prefix vim)/bin:$PATH"
@@ -228,7 +228,6 @@ iciba(){
 up(){ DEEP=$1; [ -z "${DEEP}" ] && { DEEP=1; }; for i in $(seq 1 ${DEEP}); do cd ../; done; }
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 
 #https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git-remote-branch/git-remote-branch.plugin.zsh
@@ -252,3 +251,5 @@ _git_remote_branch() {
   fi
 }
 compdef _git_remote_branch grb
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
